@@ -5,5 +5,6 @@
     "DISABLED" : false,
     "NAME" : "WikiSearch",
     "TAGS" : ["wikipedia", "search"],
+    "REQUIREMENTS" : ["wikipedia"],
     "INSTALL_MSG" : "ensure you have the wikipedia api installed use pip install wikipedia"
 }
