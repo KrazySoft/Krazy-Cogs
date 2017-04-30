@@ -1,0 +1,9 @@
+{
+    "AUTHOR" : "Krazysh01",
+    "SHORT" : "Search Wikipedia",
+    "DESCRIPTION" : "Uses wikipedia to return a summary of whatever you want",
+    "DISABLED" : false,
+    "NAME" : "WikiSearch",
+    "TAGS" : ["wikipedia", "search"],
+    "INSTALL_MSG" : "ensure you have the wikipedia api installed use pip install wikipedia"
+}
