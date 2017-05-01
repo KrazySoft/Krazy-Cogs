@@ -1,7 +1,8 @@
 {
     "AUTHOR" : "Krazysh01",
     "SHORT" : "Search Wikipedia",
-    "DESCRIPTION" : "Uses wikipedia to return a summary of whatever you want",
+    "DESCRIPTION" : "Uses wikipedia to return a summary of whatever you want
+                      thanks to @ThePheonixGuy#7251 for his assistance and feedback on making wikisearch what it is",
     "DISABLED" : false,
     "NAME" : "WikiSearch",
     "TAGS" : ["wikipedia", "search"],
