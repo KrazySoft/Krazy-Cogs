@@ -27,7 +27,7 @@ class wikisearch:
         """Uses the wikipedia api to search for your search terms."""
         user = ctx.message.author
         try:
-            summary, title = await getSummary(searchTerms)
+            summary, title, url = await getSummary(searchTerms)
         except DisambiguationError as e:
             await self.bot.say("Multiple results found:")
             x = 1
@@ -44,7 +44,7 @@ class wikisearch:
             await self.bot.say(output)
             response = await self.bot.wait_for_message(timeout=15, author=user)
             if response is None:
-                summary, title = await getSummary(e.options[0])
+                summary, title, url = await getSummary(e.options[0])
             else:
                 try:
                     choice = int(response.content)
@@ -54,8 +54,8 @@ class wikisearch:
                 if (choice > limit):
                     await self.bot.say("Invalid choice")
                     return
-            summary, title = await getSummary(e.options[choice-1])
-        em = discord.Embed(title=title, description=summary, colour=0xDEADBF)
+            summary, title, url = await getSummary(e.options[choice-1])
+        em = discord.Embed(title=title, description="{}\nMore: {}".format(summary,url), colour=0xDEADBF)
         em.set_author(name='Wikipedia', icon_url="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Wikipedia-logo-v2-en.svg/1200px-Wikipedia-logo-v2-en.svg.png")
         try:
             await self.bot.say(embed=em)
@@ -68,10 +68,10 @@ class wikisearch:
         """Uses the wikipedia API to return a random page"""
         randomTitle = await random()
         try:
-            summary, title = await getSummary(searchTerms)
+            summary, title, url = await getSummary(randomTitle)
         except DisambiguationError as e:
-            summary, title = await getSummary(e.options[0])
-        em = discord.Embed(title=title, description=summary, colour=0xDEADBF)
+            summary, title, url = await getSummary(e.options[0])
+        em = discord.Embed(title=title, description="{}\nMore: {}".format(summary,url), colour=0xDEADBF)
         em.set_author(name='Wikipedia', icon_url="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Wikipedia-logo-v2-en.svg/1200px-Wikipedia-logo-v2-en.svg.png")
         await self.bot.say(embed=em)
 
@@ -633,6 +633,7 @@ async def summary(title, sentences=0, chars=0, auto_suggest=True, redirect=True)
         # also, use page's error checking to raise DisambiguationError if necessary
         page_info = await page(title, auto_suggest=auto_suggest, redirect=redirect)
         title = page_info.title
+        url = page_info.url
         pageid = page_info.pageid
 
         query_params = {
@@ -651,7 +652,7 @@ async def summary(title, sentences=0, chars=0, auto_suggest=True, redirect=True)
         request = await _wiki_request(query_params)
         summary = request['query']['pages'][pageid]['extract']
 
-        return summary, title
+        return summary, title, url
 
 async def search(query, results=10, suggestion=False):
       '''
