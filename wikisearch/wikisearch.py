@@ -27,7 +27,7 @@ class wikisearch:
         """Uses the wikipedia api to search for your search terms."""
         user = ctx.message.author
         try:
-            summary, title, url, image = await getSummary(searchTerms)
+            summary, title, url = await getSummary(searchTerms)
         except DisambiguationError as e:
             await self.bot.say("Multiple results found:")
             x = 1
@@ -44,7 +44,7 @@ class wikisearch:
             await self.bot.say(output)
             response = await self.bot.wait_for_message(timeout=15, author=user)
             if response is None:
-                summary, title, url, image = await getSummary(e.options[0])
+                summary, title, url = await getSummary(e.options[0])
             else:
                 try:
                     choice = int(response.content)
@@ -54,13 +54,13 @@ class wikisearch:
                 if (choice > limit):
                     await self.bot.say("Invalid choice")
                     return
-            summary, title, url, image = await getSummary(e.options[choice-1])
+            summary, title, url = await getSummary(e.options[choice-1])
         summary = summary.split("\n")
         summary = summary[0]
         em = discord.Embed(title=title, description="{}\nMore: {}".format(summary,url), colour=0xDEADBF)
         em.set_author(name='Wikipedia', icon_url="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Wikipedia-logo-v2-en.svg/1200px-Wikipedia-logo-v2-en.svg.png")
-        if image.lower().endswith(".gifv") or image.lower().endswith(".gif") or image.lower().endswith(".png") or image.lower().endswith(".jpeg") or image.lower().endswith(".jpg"):
-            em.set_image(url=image[0])
+        #if image.lower().endswith(".gifv") or image.lower().endswith(".gif") or image.lower().endswith(".png") or image.lower().endswith(".jpeg") or image.lower().endswith(".jpg"):
+        #    em.set_image(url=image[0])
         try:
             await self.bot.say(embed=em)
         except:
@@ -79,8 +79,8 @@ class wikisearch:
         summary = summary[0]
         em = discord.Embed(title=title, description="{}\nMore: {}".format(summary,url), colour=0xDEADBF)
         em.set_author(name='Wikipedia', icon_url="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Wikipedia-logo-v2-en.svg/1200px-Wikipedia-logo-v2-en.svg.png")
-        if image.lower().endswith(".gifv") or image.lower().endswith(".gif") or image.lower().endswith(".png") or image.lower().endswith(".jpeg") or image.lower().endswith(".jpg"):
-            em.set_image(url=image[0])
+        #if image.lower().endswith(".gifv") or image.lower().endswith(".gif") or image.lower().endswith(".png") or image.lower().endswith(".jpeg") or image.lower().endswith(".jpg"):
+        #    em.set_image(url=image[0])
         await self.bot.say(embed=em)
 
 def setup(bot):
@@ -642,7 +642,7 @@ async def summary(title, sentences=0, chars=0, auto_suggest=True, redirect=True)
         page_info = await page(title, auto_suggest=auto_suggest, redirect=redirect)
         title = page_info.title
         url = page_info.url
-        images = await page_info.images
+        #images = await page_info.images
         pageid = page_info.pageid
 
         query_params = {
@@ -661,7 +661,7 @@ async def summary(title, sentences=0, chars=0, auto_suggest=True, redirect=True)
         request = await _wiki_request(query_params)
         summary = request['query']['pages'][pageid]['extract']
 
-        return summary, title, url, images
+        return summary, title, url
 
 async def search(query, results=10, suggestion=False):
       '''
