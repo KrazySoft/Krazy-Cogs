@@ -67,6 +67,17 @@ def setup(bot):
     else:
         print("Install BeautifulSoup4 using pip install BeautifulSoup4")
 
+#Define Colours
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
 #exception Definitions
 
 ODD_ERROR_MESSAGE = "This shouldn't happen. Please report on GitHub: github.com/goldsmith/Wikipedia"
@@ -705,6 +716,6 @@ class wikipedia:
 
       async with aiohttp.get(API_URL, params=params, headers=headers) as response:
         r = await response.text()
-        print(r)
+        print(bcolors.WARNING + r)
 
       return r.json()
