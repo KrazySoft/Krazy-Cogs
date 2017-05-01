@@ -593,6 +593,34 @@ class wikipedia:
 
         return self.content[index:next_index].lstrip("=").strip()
 
+    async def page(title=None, pageid=None, auto_suggest=True, redirect=True, preload=False):
+       '''
+       Get a WikipediaPage object for the page with title `title` or the pageid
+       `pageid` (mutually exclusive).
+
+       Keyword arguments:
+
+       * title - the title of the page to load
+       * pageid - the numeric pageid of the page to load
+       * auto_suggest - let Wikipedia find a valid page title for the query
+       * redirect - allow redirection without raising RedirectError
+       * preload - load content, summary, images, references, and links during initialization
+       '''
+
+       if title is not None:
+         if auto_suggest:
+           results, suggestion = await search(title, results=1, suggestion=True)
+           try:
+             title = suggestion or results[0]
+           except IndexError:
+             # if there is no suggestion or search results, the page doesn't exist
+             raise PageError(title)
+         return WikipediaPage(title, redirect=redirect, preload=preload)
+       elif pageid is not None:
+         return WikipediaPage(pageid=pageid, preload=preload)
+       else:
+         raise ValueError("Either a title or a pageid must be specified")
+
     @cache
     async def summary(title, sentences=0, chars=0, auto_suggest=True, redirect=True):
         '''
@@ -631,34 +659,6 @@ class wikipedia:
         summary = request['query']['pages'][pageid]['extract']
 
         return summary
-
-    async def page(title=None, pageid=None, auto_suggest=True, redirect=True, preload=False):
-       '''
-       Get a WikipediaPage object for the page with title `title` or the pageid
-       `pageid` (mutually exclusive).
-
-       Keyword arguments:
-
-       * title - the title of the page to load
-       * pageid - the numeric pageid of the page to load
-       * auto_suggest - let Wikipedia find a valid page title for the query
-       * redirect - allow redirection without raising RedirectError
-       * preload - load content, summary, images, references, and links during initialization
-       '''
-
-       if title is not None:
-         if auto_suggest:
-           results, suggestion = await search(title, results=1, suggestion=True)
-           try:
-             title = suggestion or results[0]
-           except IndexError:
-             # if there is no suggestion or search results, the page doesn't exist
-             raise PageError(title)
-         return WikipediaPage(title, redirect=redirect, preload=preload)
-       elif pageid is not None:
-         return WikipediaPage(pageid=pageid, preload=preload)
-       else:
-         raise ValueError("Either a title or a pageid must be specified")
 
     @cache
     async def search(query, results=10, suggestion=False):
