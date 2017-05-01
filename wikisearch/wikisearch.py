@@ -18,10 +18,9 @@ class wikisearch:
         self.bot = bot
 
     @commands.command(pass_context = True)
-    async def search(self, ctx):
+    async def search(self, ctx, *, searchTerms):
         """Uses the wikipedia api to search for your search terms."""
         user = ctx.message.author
-        searchTerms = ctx.message.content
         try:
             summary = await getSummary(searchTerms)
             title = searchTerms
