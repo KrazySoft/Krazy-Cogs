@@ -28,7 +28,7 @@ class wikisearch:
         try:
             summary = await getSummary(searchTerms)
             title = searchTerms
-        except wikipedia.exceptions.DisambiguationError as e:
+        except DisambiguationError as e:
             await self.bot.say("Multiple results found:")
             x = 1
             limit = 4
