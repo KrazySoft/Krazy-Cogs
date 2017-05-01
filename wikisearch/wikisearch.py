@@ -61,14 +61,16 @@ class wikisearch:
             await self.bot.say(embed=em)
         except:
             print("Unable to send message {}".format(em))
-        @commands.command()
-        async def wikir(self):
-            """Uses the wikipedia API to return a random page"""
-            randomTitle = await random()
-            summary, title = await getSummary(randomTitle)
-            em = discord.Embed(title=title, description=summary, colour=0xDEADBF)
-            em.set_author(name='Wikipedia', icon_url="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Wikipedia-logo-v2-en.svg/1200px-Wikipedia-logo-v2-en.svg.png")
-            await self.bot.send_message(ctx.message.channel, embed=em)
+            await self.bot.say("Search Failed");
+
+    @commands.command()
+    async def wikir(self):
+        """Uses the wikipedia API to return a random page"""
+        randomTitle = await random()
+        summary, title = await getSummary(randomTitle)
+        em = discord.Embed(title=title, description=summary, colour=0xDEADBF)
+        em.set_author(name='Wikipedia', icon_url="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Wikipedia-logo-v2-en.svg/1200px-Wikipedia-logo-v2-en.svg.png")
+        await self.bot.send_message(ctx.message.channel, embed=em)
 
 def setup(bot):
     if hasSoup:
