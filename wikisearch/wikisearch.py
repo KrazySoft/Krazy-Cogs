@@ -28,7 +28,6 @@ class wikisearch:
         user = ctx.message.author
         try:
             summary = await getSummary(searchTerms)
-            title = searchTerms
         except DisambiguationError as e:
             await self.bot.say("Multiple results found:")
             x = 1
@@ -45,7 +44,6 @@ class wikisearch:
             await self.bot.say(output)
             response = await self.bot.wait_for_message(timeout=15, author=user)
             if response is None:
-                title = e.options[0]
                 summary = await getSummary(e.options[0])
             else:
                 try:
@@ -57,8 +55,7 @@ class wikisearch:
                     await self.bot.say("Invalid choice")
                     return
             summary = await getSummary(e.options[choice-1])
-            title = e.options[choice-1]
-        em = discord.Embed(title=title, description=summary, colour=0xDEADBF)
+        em = discord.Embed(title=summary[1], description=summary[0], colour=0xDEADBF)
         em.set_author(name='Wikipedia', icon_url="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Wikipedia-logo-v2-en.svg/1200px-Wikipedia-logo-v2-en.svg.png")
         await self.bot.send_message(ctx.message.channel, embed=em)
 
@@ -67,7 +64,7 @@ class wikisearch:
             """Uses the wikipedia API to return a random page"""
             randomTitle = await random()
             summary = await getSummary(randomTitle)
-            em = discord.Embed(title=random, description=summary, colour=0xDEADBF)
+            em = discord.Embed(title=summary[1], description=summary[0], colour=0xDEADBF)
             em.set_author(name='Wikipedia', icon_url="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Wikipedia-logo-v2-en.svg/1200px-Wikipedia-logo-v2-en.svg.png")
             await self.bot.send_message(ctx.message.channel, embed=em)
 
@@ -647,7 +644,7 @@ async def summary(title, sentences=0, chars=0, auto_suggest=True, redirect=True)
         request = await _wiki_request(query_params)
         summary = request['query']['pages'][pageid]['extract']
 
-        return summary
+        return summary, title
 
 async def search(query, results=10, suggestion=False):
       '''
