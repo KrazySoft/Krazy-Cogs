@@ -438,7 +438,7 @@ class WikipediaPage(object):
         return self._parent_id
 
       @property
-      def summary(self):
+      async def summary(self):
         '''
         Plain text summary of the page.
         '''
@@ -454,7 +454,7 @@ class WikipediaPage(object):
           else:
              query_params['pageids'] = self.pageid
 
-          request = _wiki_request(query_params)
+          request = await _wiki_request(query_params)
           self._summary = request['query']['pages'][self.pageid]['extract']
 
         return self._summary
