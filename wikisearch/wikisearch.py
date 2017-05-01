@@ -55,6 +55,8 @@ class wikisearch:
                     await self.bot.say("Invalid choice")
                     return
             summary, title, url = await getSummary(e.options[choice-1])
+        summary = summary.split("\n")
+        summary = summary[0]
         em = discord.Embed(title=title, description="{}\nMore: {}".format(summary,url), colour=0xDEADBF)
         em.set_author(name='Wikipedia', icon_url="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Wikipedia-logo-v2-en.svg/1200px-Wikipedia-logo-v2-en.svg.png")
         try:
@@ -71,6 +73,8 @@ class wikisearch:
             summary, title, url = await getSummary(randomTitle)
         except DisambiguationError as e:
             summary, title, url = await getSummary(e.options[0])
+        summary = summary.split("\n")
+        summary = summary[0]
         em = discord.Embed(title=title, description="{}\nMore: {}".format(summary,url), colour=0xDEADBF)
         em.set_author(name='Wikipedia', icon_url="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Wikipedia-logo-v2-en.svg/1200px-Wikipedia-logo-v2-en.svg.png")
         await self.bot.say(embed=em)
