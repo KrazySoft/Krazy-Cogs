@@ -67,7 +67,7 @@ class wikisearch:
             print("Unable to send message {}".format(em))
             await self.bot.say("Search Failed");
 
-    @commands.command(aliases=['wikir', 'searchr'])
+    @commands.command(aliases=['wikir', 'wr'])
     async def random(self):
         """Uses the wikipedia API to return a random page"""
         randomTitle = await random()
