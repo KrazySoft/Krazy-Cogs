@@ -203,7 +203,7 @@ class WikipediaPage(object):
       Uses property methods to filter data from the raw HTML.
       '''
 
-      def __init__(self, title=None, pageid=None, redirect=True, preload=False, original_title=''):
+      async def __init__(self, title=None, pageid=None, redirect=True, preload=False, original_title=''):
         if title is not None:
           self.title = title
           self.original_title = original_title or title
@@ -613,9 +613,9 @@ async def page(title=None, pageid=None, auto_suggest=True, redirect=True, preloa
            except IndexError:
              # if there is no suggestion or search results, the page doesn't exist
              raise PageError(title)
-         return WikipediaPage(title, redirect=redirect, preload=preload)
+         return await WikipediaPage(title, redirect=redirect, preload=preload)
        elif pageid is not None:
-         return WikipediaPage(pageid=pageid, preload=preload)
+         return await WikipediaPage(pageid=pageid, preload=preload)
        else:
          raise ValueError("Either a title or a pageid must be specified")
 
