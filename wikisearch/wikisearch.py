@@ -3,7 +3,11 @@ import discord
 from discord.ext import commands
 import asyncio
 import aiohttp
-from bs4 import BeautifulSoup
+try:
+    from bs4 import BeautifulSoup
+    hasSoup = True
+except:
+    hasSoup = False
 import sys
 import functools
 
@@ -58,10 +62,10 @@ class wikisearch:
         await self.bot.send_message(ctx.message.channel, embed=em)
 
 def setup(bot):
-    if wiki:
+    if hasSoup:
         bot.add_cog(wikisearch(bot))
     else:
-        print("Install wikipedia api using pip install wikipedia")
+        print("Install BeautifulSoup4 using pip install BeautifulSoup4")
 
 #exception Definitions
 
