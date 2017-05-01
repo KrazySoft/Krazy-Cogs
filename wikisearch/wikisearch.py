@@ -13,7 +13,8 @@ import functools
 
 #note the lack of the command tag, this is on purpose
 async def getSummary(terms):
-    return await summary(terms)
+    s =  await summary(terms)
+    return s
 
 class wikisearch:
     """Search wikipedia"""
