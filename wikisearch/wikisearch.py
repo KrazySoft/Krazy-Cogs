@@ -61,6 +61,15 @@ class wikisearch:
         em.set_author(name='Wikipedia', icon_url="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Wikipedia-logo-v2-en.svg/1200px-Wikipedia-logo-v2-en.svg.png")
         await self.bot.send_message(ctx.message.channel, embed=em)
 
+        @commands.command()
+        async def wikir(self):
+            """Uses the wikipedia API to return a random page"""
+            randomTitle = await random()
+            summary = await getSummary(randomTitle)
+            em = discord.Embed(title=random, description=summary, colour=0xDEADBF)
+            em.set_author(name='Wikipedia', icon_url="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Wikipedia-logo-v2-en.svg/1200px-Wikipedia-logo-v2-en.svg.png")
+            await self.bot.send_message(ctx.message.channel, embed=em)
+
 def setup(bot):
     if hasSoup:
         bot.add_cog(wikisearch(bot))
@@ -719,3 +728,28 @@ async def _wiki_request(params):
         #print(bcolors.WARNING + r + bcolors.ENDC)
 
       return r
+
+async def random(pages=1):
+  '''
+  Get a list of random Wikipedia article titles.
+
+  .. note:: Random only gets articles from namespace 0, meaning no Category, User talk, or other meta-Wikipedia pages.
+
+  Keyword arguments:
+
+  * pages - the number of random pages returned (max of 10)
+  '''
+  #http://en.wikipedia.org/w/api.php?action=query&list=random&rnlimit=5000&format=jsonfm
+  query_params = {
+    'list': 'random',
+    'rnnamespace': 0,
+    'rnlimit': pages,
+  }
+
+  request = await _wiki_request(query_params)
+  titles = [page['title'] for page in request['query']['random']]
+
+  if len(titles) == 1:
+    return titles[0]
+
+  return titles
