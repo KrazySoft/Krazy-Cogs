@@ -249,7 +249,7 @@ class WikipediaPage(object):
         else:
           query_params['pageids'] = self.pageid
 
-        request = _wiki_request(query_params)
+        request = await _wiki_request(query_params)
 
         query = request['query']
         pageid = list(query['pages'].keys())[0]
