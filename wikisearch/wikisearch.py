@@ -67,7 +67,10 @@ class wikisearch:
     async def wikir(self):
         """Uses the wikipedia API to return a random page"""
         randomTitle = await random()
-        summary, title = await getSummary(randomTitle)
+        try:
+            summary, title = await getSummary(searchTerms)
+        except DisambiguationError as e:
+            summary, title = await getSummary(e.options[0])
         em = discord.Embed(title=title, description=summary, colour=0xDEADBF)
         em.set_author(name='Wikipedia', icon_url="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Wikipedia-logo-v2-en.svg/1200px-Wikipedia-logo-v2-en.svg.png")
         await self.bot.say(embed=em)
