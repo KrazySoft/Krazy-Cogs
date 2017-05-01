@@ -453,7 +453,7 @@ class WikipediaPage(object):
         return self._summary
 
       @property
-      def images(self):
+      async def images(self):
         '''
         List of URLs of images on the page.
         '''
@@ -470,7 +470,7 @@ class WikipediaPage(object):
             if 'imageinfo' in page
           ]
 
-        return self._images
+        return await self._images
 
       @property
       def coordinates(self):
@@ -642,7 +642,7 @@ async def summary(title, sentences=0, chars=0, auto_suggest=True, redirect=True)
         page_info = await page(title, auto_suggest=auto_suggest, redirect=redirect)
         title = page_info.title
         url = page_info.url
-        images = page_info.images
+        images = await page_info.images
         pageid = page_info.pageid
 
         query_params = {
