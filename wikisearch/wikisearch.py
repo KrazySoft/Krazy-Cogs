@@ -70,7 +70,7 @@ class wikisearch:
         summary, title = await getSummary(randomTitle)
         em = discord.Embed(title=title, description=summary, colour=0xDEADBF)
         em.set_author(name='Wikipedia', icon_url="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Wikipedia-logo-v2-en.svg/1200px-Wikipedia-logo-v2-en.svg.png")
-        await self.bot.send_message(ctx.message.channel, embed=em)
+        await self.bot.say(embed=em)
 
 def setup(bot):
     if hasSoup:
