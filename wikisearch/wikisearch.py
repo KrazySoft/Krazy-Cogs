@@ -13,7 +13,7 @@ import functools
 
 #note the lack of the command tag, this is on purpose
 async def getSummary(terms):
-    return await wikipedia.summary(terms)
+    return await summary(terms)
 
 class wikisearch:
     """Search wikipedia"""
@@ -197,9 +197,7 @@ def stdout_encode(u, default='UTF8'):
 API_URL = 'http://en.wikipedia.org/w/api.php'
 USER_AGENT = 'wikipedia (https://github.com/goldsmith/Wikipedia/)'
 
-class wikipedia:
-
-    class WikipediaPage(object):
+class WikipediaPage(object):
       '''
       Contains data from a Wikipedia page.
       Uses property methods to filter data from the raw HTML.
@@ -593,7 +591,7 @@ class wikipedia:
 
         return self.content[index:next_index].lstrip("=").strip()
 
-    async def page(title=None, pageid=None, auto_suggest=True, redirect=True, preload=False):
+async def page(title=None, pageid=None, auto_suggest=True, redirect=True, preload=False):
        '''
        Get a WikipediaPage object for the page with title `title` or the pageid
        `pageid` (mutually exclusive).
@@ -621,8 +619,8 @@ class wikipedia:
        else:
          raise ValueError("Either a title or a pageid must be specified")
 
-    @cache
-    async def summary(title, sentences=0, chars=0, auto_suggest=True, redirect=True):
+@cache
+async def summary(title, sentences=0, chars=0, auto_suggest=True, redirect=True):
         '''
         Plain text summary of the page.
 
@@ -660,8 +658,8 @@ class wikipedia:
 
         return summary
 
-    @cache
-    async def search(query, results=10, suggestion=False):
+@cache
+async def search(query, results=10, suggestion=False):
       '''
       Do a Wikipedia search for `query`.
 
@@ -699,7 +697,7 @@ class wikipedia:
 
       return list(search_results)
 
-    async def _wiki_request(params):
+async def _wiki_request(params):
       '''
       Make a request to the Wikipedia API using the given search parameters.
       Returns a parsed dict of the JSON response.
