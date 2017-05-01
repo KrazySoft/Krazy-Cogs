@@ -57,8 +57,10 @@ class wikisearch:
             summary, title = await getSummary(e.options[choice-1])
         em = discord.Embed(title=title, description=summary, colour=0xDEADBF)
         em.set_author(name='Wikipedia', icon_url="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Wikipedia-logo-v2-en.svg/1200px-Wikipedia-logo-v2-en.svg.png")
-        await self.bot.send_message(ctx.message.channel, embed=em)
-
+        try:
+            await self.bot.say(em)
+        except:
+            print("Unable to send message {}".format(em))
         @commands.command()
         async def wikir(self):
             """Uses the wikipedia API to return a random page"""
