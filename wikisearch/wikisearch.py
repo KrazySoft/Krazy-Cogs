@@ -704,6 +704,6 @@ class wikipedia:
       }
 
       async with aiohttp.get(API_URL, params=params, headers=headers) as response:
-        r = await response.json()
+        r = await response.content
 
-      return r
+      return r.json()
