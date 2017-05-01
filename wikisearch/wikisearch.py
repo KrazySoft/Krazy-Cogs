@@ -58,7 +58,7 @@ class wikisearch:
         em = discord.Embed(title=title, description=summary, colour=0xDEADBF)
         em.set_author(name='Wikipedia', icon_url="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Wikipedia-logo-v2-en.svg/1200px-Wikipedia-logo-v2-en.svg.png")
         try:
-            await self.bot.say(em)
+            await self.bot.say(embed=em)
         except:
             print("Unable to send message {}".format(em))
         @commands.command()
