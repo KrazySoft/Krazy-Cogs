@@ -212,7 +212,7 @@ class WikipediaPage(object):
         else:
           raise ValueError("Either a title or a pageid must be specified")
 
-        self.__load(redirect=redirect, preload=preload)
+        await self.__load(redirect=redirect, preload=preload)
 
         if preload:
           for prop in ('content', 'summary', 'images', 'references', 'links', 'sections'):
@@ -231,7 +231,7 @@ class WikipediaPage(object):
         except:
           return False
 
-      def __load(self, redirect=True, preload=False):
+      async def __load(self, redirect=True, preload=False):
         '''
         Load basic information from Wikipedia.
         Confirm that page exists and is not a disambiguation/redirect.
