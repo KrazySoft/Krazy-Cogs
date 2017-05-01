@@ -22,7 +22,7 @@ class wikisearch:
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(pass_context = True)
+    @commands.command(pass_context = True, aliases=['wikis', 'ws'])
     async def search(self, ctx, *, searchTerms : str):
         """Uses the wikipedia api to search for your search terms."""
         user = ctx.message.author
@@ -67,8 +67,8 @@ class wikisearch:
             print("Unable to send message {}".format(em))
             await self.bot.say("Search Failed");
 
-    @commands.command()
-    async def wikir(self):
+    @commands.command(aliases=['wikir', 'searchr'])
+    async def random(self):
         """Uses the wikipedia API to return a random page"""
         randomTitle = await random()
         try:
