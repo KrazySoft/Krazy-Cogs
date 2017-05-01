@@ -202,8 +202,12 @@ class WikipediaPage(object):
       Contains data from a Wikipedia page.
       Uses property methods to filter data from the raw HTML.
       '''
+      async def create(title=None, pageid=None, redirect=True, preload=False, original_title=''):
+          self = WikipediaPage(title, pageid, redirect, preload, original_title)
+          await self.__load(redirect=redirect, preload=preload)
+          return self
 
-      async def __init__(self, title=None, pageid=None, redirect=True, preload=False, original_title=''):
+      def __init__(self, title=None, pageid=None, redirect=True, preload=False, original_title=''):
         if title is not None:
           self.title = title
           self.original_title = original_title or title
@@ -211,8 +215,6 @@ class WikipediaPage(object):
           self.pageid = pageid
         else:
           raise ValueError("Either a title or a pageid must be specified")
-
-        await self.__load(redirect=redirect, preload=preload)
 
         if preload:
           for prop in ('content', 'summary', 'images', 'references', 'links', 'sections'):
@@ -280,7 +282,7 @@ class WikipediaPage(object):
             assert redirects['from'] == from_title, ODD_ERROR_MESSAGE
 
             # change the title and reload the whole object
-            self.__init__(redirects['to'], redirect=redirect, preload=preload)
+            await self.create(redirects['to'], redirect=redirect, preload=preload)
 
           else:
             raise RedirectError(getattr(self, 'title', page['title']))
@@ -299,7 +301,7 @@ class WikipediaPage(object):
             query_params['pageids'] = self.pageid
           else:
             query_params['titles'] = self.title
-          request = _wiki_request(query_params)
+          request = await _wiki_request(query_params)
           html = request['query']['pages'][pageid]['revisions'][0]['*']
 
           lis = BeautifulSoup(html, 'html.parser').find_all('li')
@@ -613,9 +615,9 @@ async def page(title=None, pageid=None, auto_suggest=True, redirect=True, preloa
            except IndexError:
              # if there is no suggestion or search results, the page doesn't exist
              raise PageError(title)
-         return await WikipediaPage(title, redirect=redirect, preload=preload)
+         return await WikipediaPage.create(title, redirect=redirect, preload=preload)
        elif pageid is not None:
-         return await WikipediaPage(pageid=pageid, preload=preload)
+         return await WikipediaPage.create(pageid=pageid, preload=preload)
        else:
          raise ValueError("Either a title or a pageid must be specified")
 
