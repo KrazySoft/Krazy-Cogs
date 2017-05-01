@@ -176,26 +176,6 @@ def debug(fn):
   return wrapper
 
 
-class cache(object):
-
-  def __init__(self, fn):
-    self.fn = fn
-    self._cache = {}
-    functools.update_wrapper(self, fn)
-
-  def __call__(self, *args, **kwargs):
-    key = str(args) + str(kwargs)
-    if key in self._cache:
-      ret = self._cache[key]
-    else:
-      ret = self._cache[key] = self.fn(*args, **kwargs)
-
-    return ret
-
-  def clear_cache(self):
-    self._cache = {}
-
-
 # from http://stackoverflow.com/questions/3627793/best-output-type-and-encoding-practices-for-repr-functions
 def stdout_encode(u, default='UTF8'):
   encoding = sys.stdout.encoding or default
@@ -631,7 +611,6 @@ async def page(title=None, pageid=None, auto_suggest=True, redirect=True, preloa
        else:
          raise ValueError("Either a title or a pageid must be specified")
 
-@cache
 async def summary(title, sentences=0, chars=0, auto_suggest=True, redirect=True):
         '''
         Plain text summary of the page.
@@ -670,7 +649,6 @@ async def summary(title, sentences=0, chars=0, auto_suggest=True, redirect=True)
 
         return summary
 
-@cache
 async def search(query, results=10, suggestion=False):
       '''
       Do a Wikipedia search for `query`.
