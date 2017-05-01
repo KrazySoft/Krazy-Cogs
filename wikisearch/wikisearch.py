@@ -713,7 +713,7 @@ async def _wiki_request(params):
       }
 
       async with aiohttp.get(API_URL, params=params, headers=headers) as response:
-        r = await response.text()
+        r = await response.json()
         print(bcolors.WARNING + r + bcolors.ENDC)
 
       return r
