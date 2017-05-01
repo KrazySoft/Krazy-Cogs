@@ -12,16 +12,16 @@ async def getSummary(terms):
     return wikipedia.summary(terms)
 
 class wikisearch:
-    """My custom cog that does stuff!"""
+    """Search wikipedia"""
 
     def __init__(self, bot):
         self.bot = bot
 
     @commands.command(pass_context = True)
-    async def search(self, ctx , searchTerms):
-        """Uses the wikipedia api to search for your search terms.
-        use "" for multiword queries."""
+    async def search(self, ctx):
+        """Uses the wikipedia api to search for your search terms."""
         user = ctx.message.author
+        searchTerms = ctx.message.content
         try:
             summary = await getSummary(searchTerms)
             title = searchTerms
