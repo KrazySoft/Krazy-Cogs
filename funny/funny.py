@@ -45,7 +45,6 @@ class funny:
             url = response.url
         try:
             imgs = soupObject.find_all("img")
-            print(imgs)
             imgurl = "https:{}".format(imgs[6]["src"])
             em = discord.Embed(title="Cyanide and Happiness",url=url, colour=0xefc62f)
             em.set_image(url=imgurl)
@@ -66,7 +65,6 @@ class funny:
                 url = response.url
             try:
                 imgs = soupObject.find_all("img")
-                print(imgs)
                 imgurl = "https:{}".format(imgs[6]["src"])
                 em = discord.Embed(title="Cyanide and Happiness",url=url, colour=0xefc62f)
                 em.set_image(url=imgurl)
