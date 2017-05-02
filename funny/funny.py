@@ -60,22 +60,23 @@ class funny:
         async with aiohttp.get(url) as response:
             soupObject = BeautifulSoup(await response.text(), "html.parser")
             url = response.url
-
-        imgs = soupObject.find_all("img")
-        print(imgs[12])
-        imgurl = imgs[12]["src"]
-        em = discord.Embed(title="Safely Endangered",url=url, colour=0xefc62f)
-        em.set_image(url=imgurl)
-        em.set_author(name='safelyendangered.com', icon_url="http://www.safelyendangered.com/wp-content/uploads/2016/01/safely-endangered-comics-1.png")
-        await self.bot.say(embed = em)
-        #await self.bot.say("Could not load comic")
+        try:
+            imgs = soupObject.find_all("img")
+            print(imgs[12])
+            imgurl = imgs[12]["src"]
+            em = discord.Embed(title="Safely Endangered",url=url, colour=0x2a2a2b)
+            em.set_image(url=imgurl)
+            em.set_author(name='safelyendangered.com', icon_url="http://www.safelyendangered.com/wp-content/uploads/2016/01/safely-endangered-comics-1.png")
+            await self.bot.say(embed = em)
+        except:
+            await self.bot.say("Could not load comic")
 
     @commands.command()
     async def funnyr(self):
         """Randomly Retrieves either an xkcd or Cyanide and Happiness comic"""
         random.seed()
-        rand = random.randint(0 , 1)
-        if(rand == 1):
+        rand = random.randint(0 , 2)
+        if(rand == 0):
             url = "http://explosm.net/comics/random" #build the web adress
             async with aiohttp.get(url) as response:
                 soupObject = BeautifulSoup(await response.text(), "html.parser")
@@ -89,7 +90,7 @@ class funny:
                 await self.bot.say(embed = em)
             except:
                 await self.bot.say("Could not load comic")
-        else:
+        elif(rand == 1):
             url = "https://c.xkcd.com/random/comic/" #build the web adress
             async with aiohttp.get(url) as response:
                 soupObject = BeautifulSoup(await response.text(), "html.parser")
@@ -107,6 +108,23 @@ class funny:
                 await self.bot.say(embed = em)
             except:
                 await self.bot.say("Could not load comic")
+        elif(rand == 2):
+            url = "http://www.safelyendangered.com/?random&nocache=1" #build the web adress
+            async with aiohttp.get(url) as response:
+                soupObject = BeautifulSoup(await response.text(), "html.parser")
+                url = response.url
+            try:
+                imgs = soupObject.find_all("img")
+                print(imgs[12])
+                imgurl = imgs[12]["src"]
+                em = discord.Embed(title="Safely Endangered",url=url, colour=0x2a2a2b)
+                em.set_image(url=imgurl)
+                em.set_author(name='safelyendangered.com', icon_url="http://www.safelyendangered.com/wp-content/uploads/2016/01/safely-endangered-comics-1.png")
+                await self.bot.say(embed = em)
+            except:
+                await self.bot.say("Could not load comic")
+        else:
+            await self.bot.say("Thats odd you shouldn't be seeing this")
 
 
 def setup(bot):
