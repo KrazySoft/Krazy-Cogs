@@ -60,17 +60,17 @@ class funny:
         async with aiohttp.get(url) as response:
             soupObject = BeautifulSoup(await response.text(), "html.parser")
             url = response.url
-        try:
-            imgs = soupObject.find_all("img")
-            heading = soupObject.find_all("h2", class_="post-title")
-            title = heading[0].contents
-            imgurl = imgs[12]["src"]
-            em = discord.Embed(title=title, url=url, colour=0x2a2a2b)
-            em.set_image(url=imgurl)
-            em.set_author(name='safelyendangered.com', icon_url="http://www.safelyendangered.com/wp-content/uploads/2016/01/safely-endangered-comics-1.png")
-            await self.bot.say(embed = em)
-        except:
-            await self.bot.say("Could not load comic")
+
+        imgs = soupObject.find_all("img")
+        heading = soupObject.find_all("h2", class_="post-title")
+        title = heading[0].contents
+        imgurl = imgs[12]["src"]
+        em = discord.Embed(title=title, url=url, colour=0x2a2a2b)
+        em.set_image(url=imgurl)
+        em.set_author(name='safelyendangered.com', icon_url="http://www.safelyendangered.com/wp-content/uploads/2016/01/safely-endangered-comics-1.png")
+        await self.bot.say(embed = em)
+        #except:
+        #    await self.bot.say("Could not load comic")
 
     @commands.command()
     async def funnyr(self):
