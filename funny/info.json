@@ -1,0 +1,10 @@
+{
+    "AUTHOR" : "Krazysh01",
+    "SHORT" : "Get a Comic from xkcd or explosm",
+    "DESCRIPTION" : "Gets a random funny comic from either xkcd.com or explosm.net",
+    "DISABLED" : false,
+    "NAME" : "funny",
+    "TAGS" : ["funny", "comic", "xkcd", "Cyanide and Happiness", "explosm", "random"],
+    "REQUIREMENTS" : ["BeautifulSoup4"],
+    "INSTALL_MSG" : "enjoy comics from the great xkcd.com and explosm.net"
+}
