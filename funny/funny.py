@@ -61,6 +61,7 @@ class funny:
             soupObject = BeautifulSoup(await response.text(), "html.parser")
             url = response.url
         heading = soupObject.find_all("h2", class_="post-title")
+        print(heading)
         title = heading[0]
         try:
             imgs = soupObject.find_all("img")
