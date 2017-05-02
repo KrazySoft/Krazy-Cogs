@@ -63,7 +63,7 @@ class funny:
         try:
             imgs = soupObject.find_all("img")
             print(imgs)
-            imgurl = "https:{}".format(imgs[7]["src"])
+            imgurl = "https:{}".format(imgs[12]["src"])
             em = discord.Embed(title="Safely Endangered",url=url, colour=0xefc62f)
             em.set_image(url=imgurl)
             em.set_author(name='safelyendangered.com', icon_url="http://www.safelyendangered.com/wp-content/uploads/2016/01/safely-endangered-comics-1.png")
