@@ -58,7 +58,7 @@ class funny:
     async def funnyr(self):
         """Randomly Retrieves either an xkcd or Cyanide and Happiness comic"""
         random.seed()
-        rand = random.random(0 , 1)
+        rand = random.randint(0 , 1)
         if(rand == 1):
             url = "http://explosm.net/comics/random" #build the web adress
             async with aiohttp.get(url) as response:
