@@ -121,7 +121,7 @@ class funny:
                 title = heading[0]
                 description = soupObject.find_all("p")
                 imgurl = imgs[12]["src"]
-                em = discord.Embed(title=title, description=description[0], url=url, colour=0x2a2a2b)
+                em = discord.Embed(title=title, description=description[0].contents, url=url, colour=0x2a2a2b)
                 em.set_image(url=imgurl)
                 em.set_author(name='safelyendangered.com', icon_url="http://www.safelyendangered.com/wp-content/uploads/2016/01/safely-endangered-comics-1.png")
                 await self.bot.say(embed = em)
