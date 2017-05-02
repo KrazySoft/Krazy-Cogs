@@ -63,7 +63,7 @@ class funny:
 
         imgs = soupObject.find_all("img")
         heading = soupObject.find_all("h2", class_="post-title")
-        title = heading[0].contents
+        title = heading[0].contents[0]
         print(title)
         imgurl = imgs[12]["src"]
         print(imgurl)
