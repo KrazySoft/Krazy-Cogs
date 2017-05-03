@@ -5,7 +5,7 @@
                       thanks to @ThePheonixGuy#7251 for his assistance and feedback on making wikisearch what it is",
     "DISABLED" : false,
     "NAME" : "WikiSearch",
-    "TAGS" : ["wikipedia", "search"],
+    "TAGS" : ["wikipedia", "search", "wiki", "random", "information"],
     "REQUIREMENTS" : ["BeautifulSoup4"],
     "INSTALL_MSG" : "ensure you have the BeautifulSoup4 installed"
 }
