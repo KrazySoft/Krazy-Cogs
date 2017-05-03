@@ -75,7 +75,7 @@ class funny:
 
     @commands.command(aliases=['funnyr', 'fr', "bored"])
     async def funnyr(self):
-        """Randomly Retrieves either an xkcd or Cyanide and Happiness comic"""
+        """Randomly Retrieves a comic from one of the sources"""
         random.seed()
         rand = random.randint(0 , 2)
         if(rand == 0):
