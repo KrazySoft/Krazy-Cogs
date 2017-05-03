@@ -73,7 +73,7 @@ class funny:
         except:
             await self.bot.say("Could not load comic")
 
-    @commands.command(aliases=['funnyr', 'fr', "bored"])
+    @commands.command(aliases=['fr', "bored"])
     async def funnyr(self):
         """Randomly Retrieves a comic from one of the sources"""
         random.seed()
