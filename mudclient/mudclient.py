@@ -126,7 +126,7 @@ class client():
             self.running = True
         except:
             print("Bad Connection")
-            await self.bot.say("Sorry {}, I Could not start your client".format(self.author))
+            await self.bot.say("Sorry {}, I Could not start your client".format(self.author.display_name))
 
     async def start():
 
@@ -140,7 +140,7 @@ class client():
                 LastTime = datetime.datetime.now
             if timeSinceLast >= maxWaitTime:
                 embed=discord.Embed(title=self.session, description=read)
-                embed.set_author(name=self.user.display_name, icon_url=self.user.avatar_url)
+                embed.set_author(name=self.author.display_name, icon_url=self.author.avatar_url)
                 await self.bot.say(embed=embed)
 
 
