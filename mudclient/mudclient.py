@@ -163,10 +163,11 @@ class client():
         self.channel = channel
         self.bot = bot
         self.session = server["Name"]
+        self.server = server
 
     async def connect(self):
         try:
-            self.reader, self.writer = await asyncio.open_connection(server["IP"], server["Port"])
+            self.reader, self.writer = await asyncio.open_connection(self.server["IP"], self.server["Port"])
             self.running = True
         except:
             print("Bad Connection")
@@ -192,7 +193,7 @@ class client():
             if timeSinceLast >= maxWaitTime or lines == maxBufferLength:
                 lines = 0
                 embed=discord.Embed(title=self.session, description=read)
-                embed.set_author(name=self.author.display_name, icon_url=self.author.avatar_url)
+                embed.set_author(name=self.author.mention, icon_url=self.author.avatar_url)
                 await self.bot.say(embed=embed)
                 readBuffer = ""
 
