@@ -126,7 +126,6 @@ class client():
             self.running = True
         except:
             print("Bad Connection")
-            await self.bot.say("Sorry {}, I Could not start your client".format(self.author.display_name))
 
     async def start():
 
