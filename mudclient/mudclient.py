@@ -190,6 +190,7 @@ class client():
                 timeSinceLast = datetime.datetime.now - LastTime
             else:
                 read = repr(read)
+                read = read[3:-1]
                 ansi_escape = re.compile(r'(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]')
                 read = ansi_escape.sub('', read)
                 if readBuffer is None:
