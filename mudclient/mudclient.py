@@ -212,7 +212,7 @@ class client():
 
     async def _write(self, message:str):
         self.writer.write(message.encode('utf-8'))
-        await self.writer.drain()
+        #await self.writer.drain()
 
 
     def author():
