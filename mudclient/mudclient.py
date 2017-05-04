@@ -187,7 +187,7 @@ class client():
             if not read:
                 timeSinceLast = datetime.datetime.now - LastTime
             else:
-                if not readBuffer:
+                if readBuffer is None:
                     readBuffer = read
                 else:
                     readBuffer = readBuffer + read
