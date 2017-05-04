@@ -29,7 +29,7 @@ class mudclient:
             for client in self.clients:
                 if(client.author == user and client.channel == channel.id):
                     hasSession = True
-                else
+                else:
                     hasSession = False
 
         if(hasSession != True):
