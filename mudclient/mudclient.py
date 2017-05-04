@@ -37,10 +37,14 @@ class mudclient:
                     hasSession = False
 
         if(hasSession != True):
-            clientThread = client(self.bot, user, channel,self.settings["Server"])
-            self.clients.append(clientThread)
-            self.bot.loop.create_task(clientThread.start())
-            await self.bot.say("```Client Started.\nPlease precede all commands with {}\nClose Session with {}EXIT```".format(self.prefix, self.prefix))
+            try:
+                clientThread = client(self.bot, user, channel,self.settings["Server"])
+                self.clients.append(clientThread)
+                self.bot.loop.create_task(clientThread.start())
+                await self.bot.say("```Client Started.\nPlease precede all commands with {}\nClose Session with {}EXIT```".format(self.prefix, self.prefix))
+            except RuntimeError as e:
+                print(e)
+                await self.bot.say("```Could not start Client Please talk to your bot owner```")
         else:
             await self.bot.say("```you already have a client running in this channel, please remeber to close it with {}EXIT```".format(self.prefix))
 
@@ -106,7 +110,7 @@ def check_folders(): # This is how you make your folder that will hold your data
 
 
 def check_files(): # This is how you check if your file exists and let's you create it
-    system = {"Server" : {"Name" : "telehack", "IP" : "telehack.com"},
+    system = {"Server" : {"Name" : "telehack", "IP" : "telehack.com", "Port" : 23},
                 "interactChar" : "#"}
     f = jsonPath # f is the path to the file
     if not dataIO.is_valid_json(f): # Checks if file in the specified path exists
@@ -123,10 +127,11 @@ class client():
         self.session = server["Name"]
         self.running = True
         try:
-            self.reader, self.writer = asyncio.open_connection(server["IP"], 23)
+            self.reader, self.writer = asyncio.open_connection(server["IP"], server["Port"])
             self.running = True
         except:
             print("Bad Connection")
+            raise RuntimeError("Could not connect to server")
 
     async def start(self):
 
