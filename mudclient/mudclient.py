@@ -30,8 +30,8 @@ class mudclient:
         if not self.clients:
             hasSession = False
         else:
-            for client in self.clients:
-                if(client.author == user and client.channel == channel.id):
+            for c in self.clients:
+                if(c.author == user and c.channel == channel.id):
                     hasSession = True
                 else:
                     hasSession = False
