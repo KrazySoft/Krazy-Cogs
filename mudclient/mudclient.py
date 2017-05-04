@@ -129,7 +129,7 @@ class mudclient:
                 if command == "EXIT":
                     session.running = False
                     self.clients.remove(session)
-                    self.bot.say("{} successfully closed client.".format(message.author.mention))
+                    await self.bot.say("{} successfully closed client.".format(message.author.mention))
                 else:
                     await session._write(command)
         else:
@@ -197,7 +197,7 @@ class client():
             if timeSinceLast >= maxWaitTime or lines == maxBufferLength:
                 lines = 0
                 try:
-                    embed=discord.Embed(title=self.session, description=readBuffer.decode('utf-16'))
+                    embed=discord.Embed(title=self.session, description=readBuffer.decode('utf-8'))
                     embed.set_author(name=self.author.mention, icon_url=self.author.avatar_url)
                     await self.bot.say(embed=embed)
                 except:
