@@ -56,6 +56,32 @@ class mudclient:
         if ctx.invoked_subcommand is None:
             await self.bot.send_cmd_help(ctx)
 
+    @commands.command(pass_context = True)
+    async def numconnections(self, ctx):
+        numClient = 0
+        for c in self.clients:
+            if c.channel == ctx.message.channel.id:
+                numClient = numClient + 1
+
+        if numClient == 0:
+            await self.bot.say("There are no active clients in this channel")
+        elif numClient == 1:
+            await self.bot.say("There is 1 active client in this channel")
+        else:
+            await self.bot.say("There are {} active clients in this channel".format(numClient))
+
+    @commands.command(pass_context = True)
+    async def haveclient(self, ctx):
+        hasSession = False
+        for c in self.clients:
+            if c.channel == ctx.message.channel.id and c.author = ctx.message.user:
+                hasSession = True
+
+        if hasSession:
+            await self.bot.say("{} you have a client running in this channel".format(ctx.message.author.mention))
+        else:
+            await self.bot.say("{} you do not have a client running in this channel".format(ctx.message.author.mention))
+
     @clientsettings.command(name="prefix", pass_context=True)
     async def _prefix(self, ctx, prefix:str):
         """Set the prefix for the MUDClient"""
@@ -64,6 +90,17 @@ class mudclient:
         self.settings['prefix'] = self.prefix
         dataIO.save_json(jsonPath, self.settings)
         await self.bot.say('`Changed client prefix to {} `'.format(self.prefix))
+
+    @clientsettings.command(name="server", pass_context=True)
+    async def _server(self, ctx, name:str, server: str, port = 23):
+        """Sets the Server the client connects to.\nUse [p]clientsettings server [name] [address] [port]\nWarning do not use while clients connected"""
+
+        self.settings['Server']['Name'] = name
+        self.settings['Server']['IP'] = server
+        self.settings['Server']['Port'] = port
+        dataIO.save_json(jsonPath, self.settings)
+        await self.bot.say('```Changed server to {} ```'.format(self.settings['Server']['Name']))
+
 
     #get client messages
     async def on_message(self, message):
