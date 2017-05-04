@@ -79,7 +79,7 @@ class mudclient:
                 check_folder()
                 check_file()
 
-            if message.content.startswith(self.prefix)
+            if message.content.startswith(self.prefix):
                 command = message.content.split(self.prefix)[1]
                 if not command:
                     return
