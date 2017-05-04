@@ -197,9 +197,8 @@ class client():
                 LastTime = datetime.datetime.now
             if timeSinceLast >= maxWaitTime or lines == maxBufferLength:
                 lines = 0
-                ansi_escape = re.compile(r'/(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]/')
-                ansi_escape.sub('', readBuffer)
-
+                ansi_escape = re.compile(r'(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]')
+                readBuffer = ansi_escape.sub('', readBuffer)
                 try:
                     embed=discord.Embed(title=self.session, description=readBuffer.decode('utf-8'))
                     embed.set_author(name=self.author.mention, icon_url=self.author.avatar_url)
