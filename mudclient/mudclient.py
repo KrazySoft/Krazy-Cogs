@@ -170,7 +170,7 @@ class client():
             self.running = True
         except:
             print("Bad Connection")
-            raise RuntimeError("Could not connect to server"))
+            raise RuntimeError("Could not connect to server")
 
     async def start(self):
         await connect()
