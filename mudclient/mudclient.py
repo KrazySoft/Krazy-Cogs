@@ -220,12 +220,12 @@ class client():
         command = "{}\n".format(message)
         command = command.encode('utf-8')
         try:
-            await self.writer.write(command)
+            self.writer.write(command)
             await self.writer.drain()
         except ConnectionError as e:
             print("Connection Lost, reconnecting and retrying")
             self.reader, self.writer = await asyncio.open_connection(self.server["IP"], self.server["Port"])
-            await self.writer.write(command)
+            self.writer.write(command)
             await self.writer.drain()
 
 
