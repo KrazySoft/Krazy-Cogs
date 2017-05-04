@@ -125,6 +125,7 @@ class mudclient:
 
             if message.content.startswith(self.prefix):
                 command = message.content.split(self.prefix)[1]
+                print(command)
                 if not command:
                     return
                 if command == "EXIT":
