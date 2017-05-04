@@ -191,7 +191,7 @@ class client():
             else:
                 read = repr(read)
                 read = read[3:-1]
-                ansi_escape = re.compile(r'(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]')
+                ansi_escape = re.compile(r'[\x02\x0F\x16\x1D\x1F]|\x03(\d{,2}(,\d{,2})?)?')
                 read = ansi_escape.sub('', read)
                 if readBuffer is None:
                     readBuffer = read
