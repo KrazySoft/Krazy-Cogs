@@ -10,6 +10,7 @@ from discord.ext import commands
 
 jsonPath = "data/mudclient/settings.json"
 maxWaitTime = 0.5
+maxBufferLength = 10
 
 class mudclient:
     """ This cog allows users to connect to MUD servers and play MUD's in discord """
@@ -173,17 +174,23 @@ class client():
     async def start(self):
 
         timeSinceLast = 0
+        lines = 0
         LastTime = datetime.datetime.now
+        readBuffer = ""
         while self.running:
             read = await self.reader.readline()
             if not read:
                 timeSinceLast = datetime.datetime.now - LastTime
             else:
+                readBuffer = readBuffer + read
+                lines = lines + 1
                 LastTime = datetime.datetime.now
-            if timeSinceLast >= maxWaitTime:
+            if timeSinceLast >= maxWaitTime or lines == maxBufferLength:
+                lines = 0
                 embed=discord.Embed(title=self.session, description=read)
                 embed.set_author(name=self.author.display_name, icon_url=self.author.avatar_url)
                 await self.bot.say(embed=embed)
+                readBuffer = ""
 
 
     async def _write(self, message:str):
