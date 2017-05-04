@@ -27,12 +27,12 @@ class mudclient:
     async def startConnection(self, ctx):
         """Creates a client session for the user in the current channel"""
         user = ctx.message.author
-        channel = ctx.message.channel.id
+        channel = ctx.message.channel
         if not self.clients:
             hasSession = False
         else:
             for c in self.clients:
-                if(c.author == user and c.channel == channel.id):
+                if(c.author == user and c.channel.id == channel.id):
                     hasSession = True
                 else:
                     hasSession = False
@@ -61,7 +61,7 @@ class mudclient:
     async def numconnections(self, ctx):
         numClient = 0
         for c in self.clients:
-            if c.channel == ctx.message.channel.id:
+            if c.channel.id == ctx.message.channel.id:
                 numClient = numClient + 1
 
         if numClient == 0:
@@ -75,7 +75,7 @@ class mudclient:
     async def haveclient(self, ctx):
         hasSession = False
         for c in self.clients:
-            if c.channel == ctx.message.channel.id and c.author == ctx.message.author:
+            if c.channel.id == ctx.message.channel.id and c.author == ctx.message.author:
                 hasSession = True
 
         if hasSession:
@@ -110,7 +110,7 @@ class mudclient:
             hasSession = False
         else:
             for client in self.clients:
-                if(client.author == message.author and client.channel == message.channel.id):
+                if(client.author == message.author and client.channel.id == message.channel.id):
                     hasSession = True
                     session = client
                 else:
@@ -129,7 +129,7 @@ class mudclient:
                 if command == "EXIT":
                     session.running = False
                     self.clients.remove(session)
-                    await self.bot.send_message("{} successfully closed client.".format(message.author.mention))
+                    await self.bot.send_message(channel = message.channel, "{} successfully closed client.".format(message.author.mention))
                 else:
                     await session._write(command)
         else:
@@ -199,10 +199,10 @@ class client():
                 try:
                     embed=discord.Embed(title=self.session, description=readBuffer.decode('utf-8'))
                     embed.set_author(name=self.author.mention, icon_url=self.author.avatar_url)
-                    await self.bot.send_message(embed=embed)
+                    await self.bot.send_message(channel = self.channel, embed=embed)
                 except:
                     print(readBuffer)
-                    await self.bot.send_message("Could not Display messages")
+                    await self.bot.send_message(channel = self.channel, "Could not Display messages")
                 readBuffer = None
 
         self.writer.close()
