@@ -189,8 +189,7 @@ class client():
             if not read:
                 timeSinceLast = datetime.datetime.now - LastTime
             else:
-                read.strip(b'0xff')
-                read = read.decode('utf-8')
+                read = repr(read)
                 ansi_escape = re.compile(r'(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]')
                 read = ansi_escape.sub('', read)
                 if readBuffer is None:
@@ -203,9 +202,7 @@ class client():
                 lines = 0
 
                 try:
-                    embed=discord.Embed(title=self.session, description=readBuffer)
-                    embed.set_author(name=self.author.mention, icon_url=self.author.avatar_url)
-                    await self.bot.send_message(destination = self.channel, embed=embed)
+                    await self.bot.send_message(destination = self.channel, content="{}\n```--------------------------------------------------------------------\n{}\n--------------------------------------------------------------------```".format(self.author.mention,readBuffer))
                 except:
                     print(readBuffer)
                     await self.bot.send_message(destination = self.channel, content = "Could not Display messages")
