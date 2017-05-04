@@ -129,7 +129,7 @@ class mudclient:
                 if command == "EXIT":
                     session.running = False
                     self.clients.remove(session)
-                    await self.bot.send_message(channel = message.channel, "{} successfully closed client.".format(message.author.mention))
+                    await self.bot.send_message(channel = message.channel, content = "{} successfully closed client.".format(message.author.mention))
                 else:
                     await session._write(command)
         else:
@@ -202,7 +202,7 @@ class client():
                     await self.bot.send_message(channel = self.channel, embed=embed)
                 except:
                     print(readBuffer)
-                    await self.bot.send_message(channel = self.channel, "Could not Display messages")
+                    await self.bot.send_message(channel = self.channel, content = "Could not Display messages")
                 readBuffer = None
 
         self.writer.close()
