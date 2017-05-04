@@ -217,7 +217,7 @@ class client():
 
     async def _write(self, message:str):
         command = "{}\n".format(message)
-        command.encode('utf-8')
+        command = command.encode('utf-8')
         try:
             self.writer.write(command)
         except ConnectionError as e:
