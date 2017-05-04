@@ -195,7 +195,10 @@ class client():
                 embed=discord.Embed(title=self.session, description=readBuffer.decode('utf-16'))
                 embed.set_author(name=self.author.mention, icon_url=self.author.avatar_url)
                 await self.bot.say(embed=embed)
-                readBuffer = ""
+                readBuffer = None
+
+        self.writer.close()
+        self.reader.close()
 
 
     async def _write(self, message:str):
