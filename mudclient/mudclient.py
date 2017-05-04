@@ -11,7 +11,7 @@ from discord.ext import commands
 
 jsonPath = "data/mudclient/settings.json"
 maxWaitTime = 0.5
-maxBufferLength = 10
+maxBufferLength = 20
 
 class mudclient:
     """ This cog allows users to connect to MUD servers and play MUD's in discord """
