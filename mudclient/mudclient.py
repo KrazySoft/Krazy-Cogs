@@ -129,6 +129,7 @@ class mudclient:
                 if command == "EXIT":
                     session.running = False
                     self.clients.remove(session)
+                    self.bot.say("{} successfully closed client.".format(message.author.mention))
                 else:
                     await session._write(command)
         else:
