@@ -190,8 +190,8 @@ class client():
                 timeSinceLast = datetime.datetime.now - LastTime
             else:
                 read = repr(read)
-                read = read[3:-1]
-                ansi_escape = re.compile(r'[\x02\x0F\x16\x1D\x1F]|\x03(\d{,2}(,\d{,2})?)?')
+                read = read[2:-1]
+                ansi_escape = re.compile(r'[\x02\x0F\x16\x1D\x1F\xF?]|\x03(\d{,2}(,\d{,2})?)?')
                 read = ansi_escape.sub('', read)
                 if readBuffer is None:
                     readBuffer = read
@@ -203,7 +203,7 @@ class client():
                 lines = 0
 
                 try:
-                    await self.bot.send_message(destination = self.channel, content="{}\n```--------------------------------------------------------------------\n{}\n--------------------------------------------------------------------```".format(self.author.mention,readBuffer))
+                    await self.bot.send_message(destination = self.channel, content="{}\n```--------------------------------------------------------------------\n{}\n--------------------------------------------------------------------```".format(self.author.mention,str(readBuffer)))
                 except:
                     print(readBuffer)
                     await self.bot.send_message(destination = self.channel, content = "Could not Display messages")
