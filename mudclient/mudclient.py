@@ -164,7 +164,7 @@ class client():
         self.bot = bot
         self.session = server["Name"]
         self.running = True
-        self.reader, self.writer = asyncio.open_connection(server["IP"], server["Port"])
+        self.reader, self.writer = await asyncio.open_connection(server["IP"], server["Port"])
         self.running = True
         #try:
         #    self.reader, self.writer = asyncio.open_connection(server["IP"], server["Port"])
