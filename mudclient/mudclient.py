@@ -129,7 +129,7 @@ class mudclient:
                 if command == "EXIT":
                     session.running = False
                     self.clients.remove(session)
-                    await self.bot.say("{} successfully closed client.".format(message.author.mention))
+                    await self.bot.send_message("{} successfully closed client.".format(message.author.mention))
                 else:
                     await session._write(command)
         else:
@@ -199,10 +199,10 @@ class client():
                 try:
                     embed=discord.Embed(title=self.session, description=readBuffer.decode('utf-8'))
                     embed.set_author(name=self.author.mention, icon_url=self.author.avatar_url)
-                    await self.bot.say(embed=embed)
+                    await self.bot.send_message(embed=embed)
                 except:
                     print(readBuffer)
-                    await self.bot.say("Could not Display messages")
+                    await self.bot.send_message("Could not Display messages")
                 readBuffer = None
 
         self.writer.close()
