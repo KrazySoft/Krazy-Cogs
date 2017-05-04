@@ -8,7 +8,7 @@ from .utils.dataIO import dataIO  # This is pulled from Twentysix26's utils
 from discord.ext import commands
 
 jsonPath = "data/mudclient/settings.json"
-maxWaitTime = 0.5f
+maxWaitTime = 0.5
 
 class mudclient:
 
