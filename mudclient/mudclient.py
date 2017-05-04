@@ -210,7 +210,7 @@ class client():
 
 
     async def _write(self, message:str):
-        self.writer.write("{}\n".format(message.encode('utf-8')))
+        self.writer.write(message.encode('utf-8'))
         await self.writer.drain()
 
 
