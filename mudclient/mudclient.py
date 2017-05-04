@@ -164,12 +164,14 @@ class client():
         self.bot = bot
         self.session = server["Name"]
         self.running = True
-        try:
-            self.reader, self.writer = asyncio.open_connection(server["IP"], server["Port"])
-            self.running = True
-        except:
-            print("Bad Connection")
-            raise RuntimeError("Could not connect to server")
+        self.reader, self.writer = asyncio.open_connection(server["IP"], server["Port"])
+        self.running = True
+        #try:
+        #    self.reader, self.writer = asyncio.open_connection(server["IP"], server["Port"])
+        #    self.running = True
+        #except:
+        #    print("Bad Connection")
+        #    raise RuntimeError("Could not connect to server")
 
     async def start(self):
 
