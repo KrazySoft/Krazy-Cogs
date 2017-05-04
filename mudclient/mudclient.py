@@ -204,9 +204,10 @@ class client():
                     readBuffer = readBuffer + read
                 lines = lines + 1
                 LastTime = datetime.datetime.now
+            if not readBuffer:
+                continue
             if timeSinceLast >= maxWaitTime or lines == maxBufferLength:
                 lines = 0
-
                 try:
                     await self.bot.send_message(destination = self.channel, content="{}\n```--------------------------------------------------------------------\n{}\n--------------------------------------------------------------------```".format(self.author.mention,str(readBuffer)))
                 except:
