@@ -187,7 +187,7 @@ class client():
             if not read:
                 timeSinceLast = datetime.datetime.now - LastTime
             else:
-                readBuffer = readBuffer + read
+                readBuffer = readBuffer + read.decode("utf-8")
                 lines = lines + 1
                 LastTime = datetime.datetime.now
             if timeSinceLast >= maxWaitTime or lines == maxBufferLength:
