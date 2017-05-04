@@ -163,6 +163,8 @@ class client():
         self.channel = channel
         self.bot = bot
         self.session = server["Name"]
+
+    async def connect(self):
         try:
             self.reader, self.writer = await asyncio.open_connection(server["IP"], server["Port"])
             self.running = True
@@ -170,9 +172,8 @@ class client():
             print("Bad Connection")
             raise RuntimeError("Could not connect to server"))
 
-
     async def start(self):
-
+        await connect()
         timeSinceLast = 0
         lines = 0
         LastTime = datetime.datetime.now
