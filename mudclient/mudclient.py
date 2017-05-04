@@ -125,7 +125,8 @@ class client():
             self.reader, self.writer = asyncio.open_connection(server["IP"], 23)
             self.running = True
         except:
-            print "Bad Connection"
+            print("Bad Connection")
+            await self.bot.say("Sorry {}, I Could not start your client".format(self.author))
 
     async def start():
 
