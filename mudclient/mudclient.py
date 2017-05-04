@@ -74,7 +74,7 @@ class mudclient:
     async def haveclient(self, ctx):
         hasSession = False
         for c in self.clients:
-            if c.channel == ctx.message.channel.id and c.author = ctx.message.user:
+            if c.channel == ctx.message.channel.id and c.author == ctx.message.user:
                 hasSession = True
 
         if hasSession:
