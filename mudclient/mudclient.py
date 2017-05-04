@@ -196,9 +196,13 @@ class client():
                 LastTime = datetime.datetime.now
             if timeSinceLast >= maxWaitTime or lines == maxBufferLength:
                 lines = 0
-                embed=discord.Embed(title=self.session, description=readBuffer.decode('utf-16'))
-                embed.set_author(name=self.author.mention, icon_url=self.author.avatar_url)
-                await self.bot.say(embed=embed)
+                try:
+                    embed=discord.Embed(title=self.session, description=readBuffer.decode('utf-16'))
+                    embed.set_author(name=self.author.mention, icon_url=self.author.avatar_url)
+                    await self.bot.say(embed=embed)
+                except:
+                    print(readBuffer)
+                    await self.bot.say("Could not Display messages")
                 readBuffer = None
 
         self.writer.close()
