@@ -173,7 +173,7 @@ class client():
             raise RuntimeError("Could not connect to server")
 
     async def start(self):
-        await connect()
+        await self.connect()
         timeSinceLast = 0
         lines = 0
         LastTime = datetime.datetime.now
