@@ -37,7 +37,7 @@ class mudclient:
                     hasSession = False
 
         if(hasSession != True):
-            clientThread = client(self.bot, user, channel.id,self.settings["Server"])
+            clientThread = client(self.bot, user, channel,self.settings["Server"])
             self.clients.append(clientThread)
             self.bot.loop.create_task(clientThread.start())
             await self.bot.say("```Client Started.\nPlease precede all commands with {}\nClose Session with {}EXIT```".format(self.prefix, self.prefix))
