@@ -11,7 +11,8 @@ jsonPath = "data/mudclient/settings.json"
 maxWaitTime = 0.5
 
 class mudclient:
-
+    """ This cog allows users to connect to MUD servers and play MUD's in discord """
+    #init cog saving all important json data
     def __init__(self, bot):
         self.bot = bot
         self.clients = []
@@ -19,8 +20,10 @@ class mudclient:
         self.settings = dataIO.load_json(self.file_path)
         self.prefix = self.settings["interactChar"]
 
+
     @commands.command(pass_context = True, aliases = ["connect"])
     async def startConnection(self, ctx):
+        """Creates a client session for the user in the current channel"""
         user = ctx.message.author
         channel = ctx.message.channel.id
         if not self.clients:
@@ -35,7 +38,7 @@ class mudclient:
         if(hasSession != True):
             clientThread = client(self.bot, user, channel.id,self.settings["Server"])
             self.clients.append(clientThread)
-            clientThread.start()
+            self.bot.loop.create_task(clientThread.start())
             await self.bot.say("```Client Started.\nPlease precede all commands with {}\nClose Session with {}EXIT```".format(self.prefix, self.prefix))
         else:
             await self.bot.say("```you already have a client running in this channel, please remeber to close it with {}EXIT```".format(self.prefix))
@@ -80,8 +83,11 @@ class mudclient:
                 command = message.content.split(self.prefix)[1]
                 if not command:
                     return
-
-                await session._write(command)
+                if command == "EXIT":
+                    session.running = False
+                    self.clients.remove(session)
+                else:
+                    await session._write(command)
         else:
             return
 
@@ -114,6 +120,7 @@ class client():
         self.channel = channel
         self.bot = bot
         self.session = server["Name"]
+        self.running = True
         try:
             self.reader, self.writer = asyncio.open_connection(server["IP"], 23)
             self.running = True
@@ -124,7 +131,7 @@ class client():
 
         timeSinceLast = 0
         LastTime = datetime.datetime.now
-        while True:
+        while self.running:
             read = await self.reader.readline()
             if not read:
                 timeSinceLast = datetime.datetime.now - LastTime
