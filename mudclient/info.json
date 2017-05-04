@@ -5,10 +5,7 @@
     "DESCRIPTION" : "This Cog allows the users to connect to a MUD server and play using standard MUD commands\nWarning: this is still experimental it could break red as easily as work",
     "DISABLED" : false,
     "NAME" : "mudclient",
-<<<<<<< HEAD
     "HIDDEN": true,
-=======
->>>>>>> d02f2ec521e5d251a1fe3dfdb8724e2ee1571364
     "TAGS" : ["MUD", "Multi-User Dungeon", "RPG", "PVP", "Game", "telnet"],
     "INSTALL_MSG" : "Warning: This cog is still highly experimental it could work fine or it could get your bot banned please do not use this until the warning is gone."
 }

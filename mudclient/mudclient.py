@@ -180,28 +180,33 @@ class client():
             await self.connect()
         except RuntimeError as e:
             raise e
+        timeSinceLast = 0
+        lines = 0
+        LastTime = datetime.datetime.now
         readBuffer = None
         while self.running:
-            if not self.reader.at_eof():
-                read = await self.reader.readline()
+            read = await self.reader.readline()
+            if not read:
+                timeSinceLast = datetime.datetime.now - LastTime
+            else:
                 read = read.decode('unicode_escape')
-                #ansi_escape = re.compile(r'[\x02\x0F\x16\x1D\x1F\xFF]|\x03(\d{,2}(,\d{,2})?)?')
-                #read = ansi_escape.sub('', read)
+                ansi_escape = re.compile(r'[\x02\x0F\x16\x1D\x1F\xFF]|\x03(\d{,2}(,\d{,2})?)?')
+                read = ansi_escape.sub('', read)
                 if readBuffer is None:
                     readBuffer = read
                 else:
                     readBuffer = readBuffer + read
-            else:
+                lines = lines + 1
+                LastTime = datetime.datetime.now
+            if timeSinceLast >= maxWaitTime or lines == maxBufferLength:
+                lines = 0
+
                 try:
                     await self.bot.send_message(destination = self.channel, content="{}\n```--------------------------------------------------------------------\n{}\n--------------------------------------------------------------------```".format(self.author.mention,str(readBuffer)))
                 except:
                     print(readBuffer)
                     await self.bot.send_message(destination = self.channel, content = "Could not Display messages")
                 readBuffer = None
-                self.reader.feed_eof()
-
-        self.writer.close()
-        self.reader.close()
 
 
     async def _write(self, message:str):
