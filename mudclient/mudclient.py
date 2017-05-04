@@ -163,7 +163,7 @@ class client():
         self.channel = channel
         self.bot = bot
         self.session = server["Name"]
-        connect()
+        await connect()
 
     async def connect(self):
         try:
