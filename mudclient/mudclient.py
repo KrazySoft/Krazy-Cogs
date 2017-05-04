@@ -128,7 +128,7 @@ class client():
         except:
             print("Bad Connection")
 
-    async def start():
+    async def start(self):
 
         timeSinceLast = 0
         LastTime = datetime.datetime.now
