@@ -181,25 +181,26 @@ class client():
         timeSinceLast = 0
         lines = 0
         LastTime = datetime.datetime.now
-        readBuffer = ""
+        readBuffer = None
         while self.running:
             read = await self.reader.readline()
             if not read:
                 timeSinceLast = datetime.datetime.now - LastTime
             else:
-                readBuffer = readBuffer + read.decode("utf-8")
+                readBuffer = readBuffer + read
                 lines = lines + 1
                 LastTime = datetime.datetime.now
             if timeSinceLast >= maxWaitTime or lines == maxBufferLength:
                 lines = 0
-                embed=discord.Embed(title=self.session, description=read)
+                embed=discord.Embed(title=self.session, description=readBuffer.decode('utf-16'))
                 embed.set_author(name=self.author.mention, icon_url=self.author.avatar_url)
                 await self.bot.say(embed=embed)
                 readBuffer = ""
 
 
     async def _write(self, message:str):
-        self.writer.write(message)
+        self.writer.write(message.encode('utf-8'))
+        await self.writer.drain()
 
 
     def author():
