@@ -40,8 +40,8 @@ class mudclient:
         if(hasSession != True):
             try:
                 clientThread = client(self.bot, user, channel,self.settings["Server"])
-                self.clients.append(clientThread)
                 self.bot.loop.create_task(clientThread.start())
+                self.clients.append(clientThread)
                 await self.bot.say("```Client Started.\nPlease precede all commands with {}\nClose Session with {}EXIT```".format(self.prefix, self.prefix))
             except RuntimeError as e:
                 print(e)
@@ -173,7 +173,10 @@ class client():
             raise RuntimeError("Could not connect to server")
 
     async def start(self):
-        await self.connect()
+        try:
+            await self.connect()
+        except RuntimeError as e:
+            raise e
         timeSinceLast = 0
         lines = 0
         LastTime = datetime.datetime.now
