@@ -7,5 +7,5 @@
     "NAME" : "mudclient",
     "HIDDEN": "True",
     "TAGS" : ["MUD", "Multi-User Dungeon", "RPG", "PVP", "Game", "telnet"],
-    "INSTALL_MSG" : "ensure you have the BeautifulSoup4 installed"
+    "INSTALL_MSG" : "Warning: This cog is still highly experimental it could work fine or it could get your bot banned please do not use this until the warning is gone."
 }
