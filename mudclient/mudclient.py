@@ -70,7 +70,7 @@ class mudclient:
                 if(client.author == message.author and client.channel == message.channel.id):
                     hasSession = True
                     session = client
-                else
+                else:
                     hasSession = False
 
         if hasSession:
