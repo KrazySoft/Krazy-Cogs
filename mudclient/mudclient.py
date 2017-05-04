@@ -189,7 +189,7 @@ class client():
             if not read:
                 timeSinceLast = datetime.datetime.now - LastTime
             else:
-                read = repr(read)
+                read = read.decode('unicode_escape')
                 read = read[2:-1]
                 ansi_escape = re.compile(r'[\x02\x0F\x16\x1D\x1F\xFF]|\x03(\d{,2}(,\d{,2})?)?')
                 read = ansi_escape.sub('', read)
