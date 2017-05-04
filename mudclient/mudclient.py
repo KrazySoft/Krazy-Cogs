@@ -186,7 +186,12 @@ class client():
         LastTime = datetime.datetime.now
         readBuffer = None
         while self.running:
-            read = await self.reader.readline()
+            try:
+                read = await self.reader.readline()
+            except ConnectionError as con:
+                print("Connection Closed: {}".format(con))
+                self.reader, self.writer = await asyncio.open_connection(self.server["IP"], self.server["Port"])
+                continue
             if not read:
                 timeSinceLast = datetime.datetime.now - LastTime
             else:
@@ -212,7 +217,7 @@ class client():
 
     async def _write(self, message:str):
         self.writer.write(message.encode('utf-8'))
-        #await self.writer.drain()
+        await self.writer.drain()
 
 
     def author():
