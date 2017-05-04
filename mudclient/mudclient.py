@@ -3,6 +3,7 @@ import threading
 import discord
 import asyncio
 import datetime
+import re
 import os # This is required because you will be creating folders/files
 from .utils.dataIO import dataIO  # This is pulled from Twentysix26's utils
 from cogs.utils import checks
@@ -196,6 +197,9 @@ class client():
                 LastTime = datetime.datetime.now
             if timeSinceLast >= maxWaitTime or lines == maxBufferLength:
                 lines = 0
+                ansi_escape = re.compile(r'/(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]/')
+                ansi_escape.sub('', readBuffer)
+
                 try:
                     embed=discord.Embed(title=self.session, description=readBuffer.decode('utf-8'))
                     embed.set_author(name=self.author.mention, icon_url=self.author.avatar_url)
