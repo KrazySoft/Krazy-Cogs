@@ -197,7 +197,7 @@ class client():
             if timeSinceLast >= maxWaitTime or lines == maxBufferLength:
                 lines = 0
                 try:
-                    embed=discord.Embed(title=self.session, description=readBuffer.decode('utf-8'))
+                    embed=discord.Embed(title=self.session, description=readBuffer.decode('utf-16'))
                     embed.set_author(name=self.author.mention, icon_url=self.author.avatar_url)
                     await self.bot.send_message(channel = self.channel, embed=embed)
                 except:
