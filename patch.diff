@@ -1,0 +1,39 @@
+From d8ba8c2838885bc29d8b8a498cd5c6c0d8f823cc Mon Sep 17 00:00:00 2001
+From: Kyle Hendry <khen0004@student.monash.edu>
+Date: Thu, 4 May 2017 21:56:05 +0200
+Subject: [PATCH] Increased line limit
+
+---
+ mudclient/info.json    | 2 +-
+ mudclient/mudclient.py | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/mudclient/info.json b/mudclient/info.json
+index b6b170f..7f22084 100644
+--- a/mudclient/info.json
++++ b/mudclient/info.json
+@@ -5,7 +5,7 @@
+     "DESCRIPTION" : "This Cog allows the users to connect to a MUD server and play using standard MUD commands\nWarning: this is still experimental it could break red as easily as work",
+     "DISABLED" : false,
+     "NAME" : "mudclient",
+-    "HIDDEN": "True",
++    "HIDDEN": true,
+     "TAGS" : ["MUD", "Multi-User Dungeon", "RPG", "PVP", "Game", "telnet"],
+     "INSTALL_MSG" : "Warning: This cog is still highly experimental it could work fine or it could get your bot banned please do not use this until the warning is gone."
+ }
+diff --git a/mudclient/mudclient.py b/mudclient/mudclient.py
+index 5c72248..656f0ec 100644
+--- a/mudclient/mudclient.py
++++ b/mudclient/mudclient.py
+@@ -11,7 +11,7 @@ from discord.ext import commands
+ 
+ jsonPath = "data/mudclient/settings.json"
+ maxWaitTime = 0.5
+-maxBufferLength = 10
++maxBufferLength = 20
+ 
+ class mudclient:
+     """ This cog allows users to connect to MUD servers and play MUD's in discord """
+-- 
+2.11.0.windows.1
+
