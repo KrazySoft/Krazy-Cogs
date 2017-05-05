@@ -192,6 +192,7 @@ class client():
                 self.reader, self.writer = await asyncio.open_connection(self.server["IP"], self.server["Port"])
                 continue
             if not read:
+                self.reader.feed_eof()
                 timeSinceLast = time.time() - LastTime
             else:
                 read = read.decode('unicode_escape')
@@ -205,7 +206,7 @@ class client():
                 LastTime = time.time()
             if not readBuffer:
                 continue
-            if timeSinceLast > maxWaitTime or lines == maxBufferLength:
+            if timeSinceLast > maxWaitTime or lines == maxBufferLength or self.reader.at_eof():
                 lines = 0
                 try:
                     await self.bot.send_message(destination = self.channel, content="{}\n```--------------------------------------------------------------------\n{}\n--------------------------------------------------------------------```".format(self.author.mention,str(readBuffer)))
