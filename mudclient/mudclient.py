@@ -191,7 +191,7 @@ class client():
                 print("Connection Closed: {}".format(con))
                 self.reader, self.writer = await asyncio.open_connection(self.server["IP"], self.server["Port"])
                 continue
-            if not read:
+            if read == "":
                 self.reader.feed_eof()
                 timeSinceLast = time.time() - LastTime
                 print("{}seconds since last line ".format(timeSinceLast))
