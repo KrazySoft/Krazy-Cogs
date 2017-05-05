@@ -56,7 +56,7 @@ class mudclient:
         if ctx.invoked_subcommand is None:
             await self.bot.send_cmd_help(ctx)
 
-    @commands.command(pass_context = True)
+    @commands.command(pass_context = True, aliases = ["numclients"])
     async def numconnections(self, ctx):
         numClient = 0
         for c in self.clients:
@@ -191,6 +191,9 @@ class client():
                 print("Connection Closed: {}".format(con))
                 self.reader, self.writer = await asyncio.open_connection(self.server["IP"], self.server["Port"])
                 continue
+            except:
+                print("something happened trying to recover by flushing buffer")
+                read = ""
             if read == "":
                 self.reader.feed_eof()
                 timeSinceLast = time.time() - LastTime
@@ -215,6 +218,7 @@ class client():
                     print(readBuffer)
                     await self.bot.send_message(destination = self.channel, content = "Could not Display messages")
                 readBuffer = None
+            self.writer.close()
 
 
 
