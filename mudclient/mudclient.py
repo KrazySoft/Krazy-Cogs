@@ -8,7 +8,7 @@ from cogs.utils import checks
 from discord.ext import commands
 
 jsonPath = "data/mudclient/settings.json"
-maxWaitTime = 0.5
+maxWaitTime = 2
 maxBufferLength = 20
 
 class mudclient:
@@ -194,6 +194,7 @@ class client():
             if not read:
                 self.reader.feed_eof()
                 timeSinceLast = time.time() - LastTime
+                print("{}seconds since last line ".format(timeSinceLast))
             else:
                 read = read.decode('unicode_escape')
                 ansi_escape = re.compile(r'[\x02\x0F\x16\x1D\x1F\xFF]|\x03(\d{,2}(,\d{,2})?)?')
@@ -230,8 +231,3 @@ class client():
             self.reader, self.writer = await asyncio.open_connection(self.server["IP"], self.server["Port"])
             self.writer.write(command)
             await self.writer.drain()
-
-
-
-    def author():
-        return self.author
