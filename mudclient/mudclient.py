@@ -191,7 +191,7 @@ class client():
                 print("Connection Closed: {}".format(con))
                 self.reader, self.writer = await asyncio.open_connection(self.server["IP"], self.server["Port"])
                 continue
-            except:
+            except EOFError as e:
                 print("something happened trying to recover by flushing buffer")
                 read = ""
             if read == "":
