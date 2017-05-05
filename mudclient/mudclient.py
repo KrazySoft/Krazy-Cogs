@@ -204,7 +204,7 @@ class client():
                 else:
                     readBuffer = readBuffer + read
                 lines = lines + 1
-                LastTime = datetime.datetime.now
+                LastTime = time.time()
             if not readBuffer:
                 continue
             if timeSinceLast > maxWaitTime or lines == maxBufferLength:
