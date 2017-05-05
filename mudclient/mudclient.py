@@ -217,7 +217,7 @@ class client():
 
 
     async def sendmessage(self, message:str):
-        command = "{}\n".format(message)
+        command = "{}\r\n".format(message)
         command = command.encode('utf-8')
         print(command)
         try:
