@@ -129,6 +129,7 @@ class mudclient:
                 if not command:
                     return
                 if command == "EXIT":
+                    await session.sendmessage(command.tolower())
                     session.running = False
                     self.clients.remove(session)
                     await self.bot.send_message(destination = message.channel, content = "{} successfully closed client.".format(message.author.mention))
@@ -181,21 +182,40 @@ class client():
             await self.connect()
         except RuntimeError as e:
             raise e
+        timeSinceLast = 0
+        lines = 0
+        LastTime = datetime.datetime.now
+        readBuffer = None
         while self.running:
             try:
-                read = await self.reader.read()
+                read = await self.reader.readline()
             except ConnectionError as con:
                 print("Connection Closed: {}".format(con))
                 self.reader, self.writer = await asyncio.open_connection(self.server["IP"], self.server["Port"])
                 continue
-            read = read.decode('unicode_escape')
-            ansi_escape = re.compile(r'[\x02\x0F\x16\x1D\x1F\xFF]|\x03(\d{,2}(,\d{,2})?)?')
-            read = ansi_escape.sub('', read)
-            try:
-                await self.bot.send_message(destination = self.channel, content="{}\n```--------------------------------------------------------------------\n{}\n--------------------------------------------------------------------```".format(self.author.mention,str(readBuffer)))
-            except:
-                print(readBuffer)
-                await self.bot.send_message(destination = self.channel, content = "Could not Display messages")
+            if not read:
+                timeSinceLast = datetime.datetime.now - LastTime
+            else:
+                read = read.decode('unicode_escape')
+                ansi_escape = re.compile(r'[\x02\x0F\x16\x1D\x1F\xFF]|\x03(\d{,2}(,\d{,2})?)?')
+                read = ansi_escape.sub('', read)
+                if readBuffer is None:
+                    readBuffer = read
+                else:
+                    readBuffer = readBuffer + read
+                lines = lines + 1
+                LastTime = datetime.datetime.now
+            if not readBuffer:
+                continue
+            if timeSinceLast > maxWaitTime or lines == maxBufferLength:
+                lines = 0
+                try:
+                    await self.bot.send_message(destination = self.channel, content="{}\n```--------------------------------------------------------------------\n{}\n--------------------------------------------------------------------```".format(self.author.mention,str(readBuffer)))
+                except:
+                    print(readBuffer)
+                    await self.bot.send_message(destination = self.channel, content = "Could not Display messages")
+                readBuffer = None
+
 
 
     async def sendmessage(self, message:str):
