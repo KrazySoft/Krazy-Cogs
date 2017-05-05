@@ -1,5 +1,3 @@
-import telnetlib
-import threading
 import discord
 import asyncio
 import time
@@ -21,7 +19,7 @@ class mudclient:
         self.clients = []
         self.file_path = jsonPath
         self.settings = dataIO.load_json(self.file_path)
-        self.prefix = self.settings["interactChar"]
+        self.prefix = self.settings["prefix"]
 
 
     @commands.command(pass_context = True, aliases = ["connect"])
@@ -153,7 +151,7 @@ def check_folders(): # This is how you make your folder that will hold your data
 
 def check_files(): # This is how you check if your file exists and let's you create it
     system = {"Server" : {"Name" : "telehack", "IP" : "telehack.com", "Port" : 23},
-                "interactChar" : "#"}
+                "prefix" : "#"}
     f = jsonPath # f is the path to the file
     if not dataIO.is_valid_json(f): # Checks if file in the specified path exists
         print("Creating default settings.json...") # Prints in console to let the user know we are making this file
