@@ -133,7 +133,7 @@ class mudclient:
                     self.clients.remove(session)
                     await self.bot.send_message(destination = message.channel, content = "{} successfully closed client.".format(message.author.mention))
                 else:
-                    await session._write(command)
+                    await session.sendmessage(command)
         else:
             return
 
@@ -216,12 +216,14 @@ class client():
                 readBuffer = None
 
 
-    async def _write(self, message:str):
+    async def sendmessage(self, message:str):
         command = "{}\n".format(message)
         command = command.encode('utf-8')
+        print(command)
         try:
             self.writer.write(command)
             await self.writer.drain()
+            print("write successfull")
         except ConnectionError as e:
             print("Connection Lost, reconnecting and retrying")
             self.reader, self.writer = await asyncio.open_connection(self.server["IP"], self.server["Port"])
