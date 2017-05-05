@@ -2,7 +2,7 @@ import telnetlib
 import threading
 import discord
 import asyncio
-import datetime
+import time
 import re
 import os # This is required because you will be creating folders/files
 from .utils.dataIO import dataIO  # This is pulled from Twentysix26's utils
@@ -129,7 +129,7 @@ class mudclient:
                 if not command:
                     return
                 if command == "EXIT":
-                    await session.sendmessage(command.tolower())
+                    await session.sendmessage(command.lower())
                     session.running = False
                     self.clients.remove(session)
                     await self.bot.send_message(destination = message.channel, content = "{} successfully closed client.".format(message.author.mention))
@@ -184,7 +184,7 @@ class client():
             raise e
         timeSinceLast = 0
         lines = 0
-        LastTime = datetime.datetime.now
+        LastTime = time.time()
         readBuffer = None
         while self.running:
             try:
@@ -194,7 +194,7 @@ class client():
                 self.reader, self.writer = await asyncio.open_connection(self.server["IP"], self.server["Port"])
                 continue
             if not read:
-                timeSinceLast = datetime.datetime.now - LastTime
+                timeSinceLast = time.time() - LastTime
             else:
                 read = read.decode('unicode_escape')
                 ansi_escape = re.compile(r'[\x02\x0F\x16\x1D\x1F\xFF]|\x03(\d{,2}(,\d{,2})?)?')
