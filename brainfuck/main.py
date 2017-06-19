@@ -8,3 +8,4 @@ else:
 
     interp = Interpreter(channel = 1, tapeLength = -1, wordLength = 8)
     print(interp.Interpret(code))
+    print("Run Complete")
