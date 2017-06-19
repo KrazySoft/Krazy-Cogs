@@ -1,10 +1,10 @@
 class Interpreter:
-    def __init__(self, channel, tapeLength = -1, wordLength = -1):
+    def __init__(self, channel = 0, tapeLength = -1, wordLength = 8):
         self.channel = channel
         self.tapeLength = tapeLength
         self.wordLength = wordLength
 
-    def Interpret(code, inp = ""):
+    def Interpret(code: str, inp = ""):
         #define Interpreter Values
         memory, memPtr, curr, inPtr, out = [], 0, 0, 0, ""
         #begin Interpreter event loop

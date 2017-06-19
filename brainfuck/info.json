@@ -5,5 +5,5 @@
     "DISABLED" : false,
     "NAME" : "Brainfuck",
     "TAGS" : ["Brainfuck", "Esolang", "Interpreter", "Programming"],
-    "INSTALL_MSG" : "Bitfuck Interpreter now installed"
+    "INSTALL_MSG" : "Brainfuck Interpreter now installed"
 }
