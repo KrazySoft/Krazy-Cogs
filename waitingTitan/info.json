@@ -1,0 +1,10 @@
+{
+    "AUTHOR" : "Krazysh01",
+    "SHORT" : "Utility features for WakingTitan",
+    "DESCRIPTION" : "A Collection of Utility Features for WakingTitan ARG",
+    "DISABLED" : false,
+    "NAME" : "waitingTitan",
+    "TAGS" : ["WakingTitan", "NMS", "No Mans Sky", "ARG", "WT"],
+    "REQUIREMENTS" : ["Pillow"],
+    "INSTALL_MSG" : "Good Luck"
+}
