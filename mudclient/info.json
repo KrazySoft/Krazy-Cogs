@@ -3,7 +3,7 @@
     "SHORT" : "Connects via telnet to a mud server
                 Warning: this is still experimental it could break red as easily as work",
     "DESCRIPTION" : "This Cog allows the users to connect to a MUD server and play using standard MUD commands\nWarning: this is still experimental it could break red as easily as work",
-    "DISABLED" : false,
+    "DISABLED" : true,
     "NAME" : "mudclient",
     "TAGS" : ["MUD", "Multi-User Dungeon", "RPG", "PVP", "Game", "telnet"],
     "INSTALL_MSG" : "Warning: This cog is still highly experimental it could work fine or it could get your bot banned please do not use this until the warning is gone."

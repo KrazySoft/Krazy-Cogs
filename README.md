@@ -6,3 +6,5 @@ Current cogs:
       Searches wikipedia for a users search terms or find a random page.
   * Funny:
       Get a random funny webcomic.
+  * WaitingTitan:
+      Utility Features for the Waking Titan ARG.

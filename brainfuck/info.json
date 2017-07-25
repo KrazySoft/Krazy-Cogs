@@ -2,7 +2,7 @@
     "AUTHOR" : "Krazysh01",
     "SHORT" : "Brainfuck Interpreter",
     "DESCRIPTION" : "Interpreter for Brainfuck Esolang",
-    "DISABLED" : false,
+    "DISABLED" : true,
     "NAME" : "Brainfuck",
     "TAGS" : ["Brainfuck", "Esolang", "Interpreter", "Programming"],
     "INSTALL_MSG" : "Brainfuck Interpreter now installed"
