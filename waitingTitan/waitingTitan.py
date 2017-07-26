@@ -59,10 +59,10 @@ class waitingTitan:
         embed.add_field(name= field_name_2, value=field_contents_2)
         if channel not in self.json_data["Waiting"]:
             message = await self.bot.say(embed=embed)
-            self.json_data["Waiting"][channel] = message.id
+            self.json_data["Waiting"][channel.id] = message.id
             dataIO.save_json(self.file_path, self.json_data)
         else:
-            message = await self.bot.get_message(channel, self.json_data["Waiting"][channel])
+            message = await self.bot.get_message(channel, self.json_data["Waiting"][channel.id])
             await self.bot.edit_message(message, embed = embed)
 
 
