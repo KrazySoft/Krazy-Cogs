@@ -47,6 +47,7 @@ class waitingTitan:
 
     @_waiting.command(pass_context = True)
     async def message(self, ctx):
+
         channel = ctx.message.channel
         now = datetime.utcnow()
         field_name_1 = "Date:"
@@ -59,10 +60,11 @@ class waitingTitan:
         embed.add_field(name= field_name_2, value=field_contents_2)
         if channel not in self.Messages["Waiting"]:
             message = await self.bot.say(embed=embed)
-            self.Messages["Waiting"][channel] = message
+            self.Messages["Waiting"][channel] = message.id
             #dataIO.save_json(self.file_path, self.json_data)
         else:
-            await self.bot.edit_message(self.Messages["Waiting"][channel], embed = embed)
+            message = await self.bot.get_message(channel, self.Messages["Waiting"][channel])
+            await self.bot.edit_message(message, embed = embed)
 
 
 
