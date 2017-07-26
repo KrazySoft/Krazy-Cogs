@@ -24,7 +24,6 @@ class waitingTitan:
     def __init__(self, bot):
         self.file_path = "data/waitingTitan/Data.json"
         self.json_data = dataIO.load_json(self.file_path)
-        self.Messages = {"Waiting": {}}
         self.bot = bot
 
 
@@ -58,12 +57,12 @@ class waitingTitan:
         embed.title = "There is Nothing New"
         embed.add_field(name=field_name_1, value=field_contents_1)  # Can add multiple fields.
         embed.add_field(name= field_name_2, value=field_contents_2)
-        if channel not in self.Messages["Waiting"]:
+        if channel not in self.json_data["Waiting"]:
             message = await self.bot.say(embed=embed)
-            self.Messages["Waiting"][channel] = message.id
-            #dataIO.save_json(self.file_path, self.json_data)
+            self.json_data["Waiting"][channel] = message.id
+            dataIO.save_json(self.file_path, self.json_data)
         else:
-            message = await self.bot.get_message(channel, self.Messages["Waiting"][channel])
+            message = await self.bot.get_message(channel, self.json_data["Waiting"][channel])
             await self.bot.edit_message(message, embed = embed)
 
 
