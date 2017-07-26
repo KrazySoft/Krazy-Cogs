@@ -22,17 +22,48 @@ class waitingTitan:
     """Functions for Waking Titan ARG"""
 
     def __init__(self, bot):
+        self.file_path = "data/waitingTitan/Data.json"
+        self.json_data = dataIO.load_json(self.file_path)
+        self.Messages = {"Waiting": {}}
         self.bot = bot
 
-    @commands.command(pass_context = True, aliases=['nonew', "check"])
+
+    @commands.group(name="waiting", pass_context=True)
     @checks.mod_or_permissions(manage_server=True)
-    async def waiting(self, ctx):
+    async def _waiting(self, ctx):
+        """Waiting Tasks for WakingTitan"""
+
+        if ctx.invoked_subcommand is None:
+            await send_cmd_help(ctx)
+
+    @_waiting.command(pass_context = True)
+    async def image(self, ctx):
         """Generates a Reminder Image stating that when last something might have happened"""
         image = createImage()
         image.save('data/waitingTitan/temp.png')
         channel = ctx.message.channel
         await self.bot.send_file(channel, 'data/waitingTitan/temp.png')
         os.remove('data/waitingTitan/temp.png')
+
+    @_waiting.command(pass_context = True)
+    async def message(self, ctx):
+        channel = ctx.message.channel
+        now = datetime.utcnow()
+        field_name_1 = "Date:"
+        field_contents_1 = "{year}-{month:02d}-{day:02d}".format(year=now.year, month=now.month, day=now.day)
+        field_name_2 = "Time:"
+        field_contents_2 = "{hour:02d}:{minute:02d} UTC".format(hour=now.hour, minute=now.minute)
+        embed = discord.Embed(colour=0xFF0000)  # Can use discord.Colour()
+        embed.title = "There is Nothing New"
+        embed.add_field(name=field_name_1, value=field_contents_1)  # Can add multiple fields.
+        embed.add_field(name= field_name_2, value=field_contents_2)
+        if channel not in self.Messages["Waiting"]:
+            message = await self.bot.say(embed=embed)
+            self.Messages["Waiting"][channel] = message
+            #dataIO.save_json(self.file_path, self.json_data)
+        else:
+            await self.bot.edit_message(self.Messages["Waiting"][channel], embed = embed)
+
 
 
 def check_folders(): # This is how you make your folder that will hold your data for your cog
@@ -42,8 +73,14 @@ def check_folders(): # This is how you make your folder that will hold your data
 
 
 def check_files(): # This is how you check if your file exists and let's you create it
-    f = "data/waitingTitan/Codystar-Regular.ttf" # f is the path to the file
-    if not os.path.isfile(f):
+    font = "data/waitingTitan/Codystar-Regular.ttf" # f is the path to the file
+    data = "data/waitingTitan/Data.json"
+    info = {"Waiting": {}}
+    if not dataIO.is_valid_json(data):
+        print("Creating default Data.json...") # Prints in console to let the user know we are making this file
+        dataIO.save_json(data, info)
+
+    if not os.path.isfile(font):
         print("retrieving Font File...")
         url = "https://fonts.google.com/download?family=Codystar"
         file_name = "data/waitingTitan/Codystar.zip"
