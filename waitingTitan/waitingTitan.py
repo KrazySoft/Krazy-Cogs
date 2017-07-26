@@ -69,6 +69,6 @@ def createImage():
     img = Image.new("RGBA", (500,150), (58,58,58))
     draw = ImageDraw.Draw(img)
     draw.text((25,20), "There Is Nothing New", (255,255,255), font=font)
-    draw.text((100,60), "As of {year}-{month:02d}-{day:02d}".format(year=now.year, month=now.month, day=now.day), (255,255,255), font=font)
-    draw.text((150,100), "At {hour:02d}:{minute:02d}".format(hour=now.hour, minute=now.minute), (255,255,255), font=font)
+    draw.text((110,60), "As of {year}-{month:02d}-{day:02d}".format(year=now.year, month=now.month, day=now.day), (255,255,255), font=font)
+    draw.text((140,100), "At {hour:02d}:{minute:02d} UTC".format(hour=now.hour, minute=now.minute), (255,255,255), font=font)
     return img
