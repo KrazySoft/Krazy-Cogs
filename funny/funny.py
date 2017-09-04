@@ -81,11 +81,11 @@ class funny:
         random.seed()
         rand = random.randint(0 , 2)
         if(rand == 0):
-            await cnh(self)
+            await cnh()
         elif(rand == 1):
-            await xkcd(self)
+            await xkcd()
         elif(rand == 2):
-            await se(self)
+            await se()
         else:
             await self.bot.say("Thats odd you shouldn't be seeing this")
 
