@@ -73,6 +73,7 @@ class funny:
             await self.bot.say(embed = em)
         except:
             await self.bot.say("Could not load comic")
+            raise
 
     @commands.command(aliases=['funnyc', 'fc'])
     async def cnh(self):
@@ -82,6 +83,7 @@ class funny:
             await self.bot.say(embed = em)
         except:
             await self.bot.say("Could not load comic")
+            raise
 
     @commands.command(aliases=['funnys', 'fs'])
     async def se(self):
@@ -91,6 +93,7 @@ class funny:
             await self.bot.say(embed = em)
         except:
             await self.bot.say("Could not load comic")
+            raise
 
     @commands.command(aliases=['fr', "bored"])
     async def funnyr(self):
@@ -111,6 +114,7 @@ class funny:
                 await self.bot.say("Thats odd you shouldn't be seeing this")
         except:
             await self.bot.say("Could not load comic")
+            raise
 
 
 def setup(bot):
