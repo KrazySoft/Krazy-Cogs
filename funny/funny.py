@@ -11,7 +11,7 @@ except:
 
 class Comics:
 
-    async def xkcd(self):
+    async def xkcd():
         """Randomly retrieve and display a comic from xkcd"""
         url = "https://c.xkcd.com/random/comic/" #build the web adress
         async with aiohttp.get(url) as response:
@@ -29,7 +29,7 @@ class Comics:
             em.set_author(name='xkcd.com', icon_url="https://xkcd.com/s/0b7742.png")
             return em
 
-    async def cnh(self):
+    async def cnh():
         """Randomly retrieve and display a comic from Cyanide and Happiness"""
         url = "http://explosm.net/comics/random" #build the web adress
         async with aiohttp.get(url) as response:
@@ -42,7 +42,7 @@ class Comics:
             em.set_author(name='explosm.net', icon_url="http://explosm.net/img/logo.png")
             return em
 
-    async def se(self):
+    async def se():
         """Randomly retrieve and display a comic from Safely Endangered"""
         url = "http://www.safelyendangered.com/?random&nocache=1" #build the web adress
         async with aiohttp.get(url) as response:
