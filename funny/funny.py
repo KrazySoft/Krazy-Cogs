@@ -61,7 +61,7 @@ class funny:
             soupObject = BeautifulSoup(await response.text(), "html.parser")
             url = response.url
         try:
-            comic = soupObject.find(id="comic"})
+            comic = soupObject.find(id="comic")
             comic = comic.find("img")
             heading = soupObject.find_all("h2", class_="post-title")
             title = heading[0].contents[0]
@@ -117,10 +117,11 @@ class funny:
                 soupObject = BeautifulSoup(await response.text(), "html.parser")
                 url = response.url
             try:
-                imgs = soupObject.find_all("img")
+                comic = soupObject.find(id="comic")
+                comic = comic.find("img")
                 heading = soupObject.find_all("h2", class_="post-title")
                 title = heading[0].contents[0]
-                imgurl = imgs[12]["src"]
+                imgurl = comic["src"]
                 em = discord.Embed(title=title, url=url, colour=0x2a2a2b)
                 em.set_image(url=imgurl)
                 em.set_author(name='safelyendangered.com', icon_url="http://www.safelyendangered.com/wp-content/uploads/2016/01/safely-endangered-comics-1.png")
