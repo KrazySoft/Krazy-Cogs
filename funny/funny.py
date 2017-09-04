@@ -61,7 +61,8 @@ class funny:
             soupObject = BeautifulSoup(await response.text(), "html.parser")
             url = response.url
         try:
-            comic = soupObject.find(id="comic"}).select("img")
+            comic = soupObject.find(id="comic"})
+            comic = comic.find("img")
             heading = soupObject.find_all("h2", class_="post-title")
             title = heading[0].contents[0]
             imgurl = comic["src"]
