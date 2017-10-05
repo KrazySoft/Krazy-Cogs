@@ -1,0 +1,9 @@
+{
+    "AUTHOR" : "Krazysh01",
+    "SHORT" : "Synchronised Countdown",
+    "DESCRIPTION" : "Countdown timer using synchronised server time",
+    "DISABLED" : true,
+    "NAME" : "Countdown",
+    "TAGS" : ["Countdown", "Timer", "count"],
+    "INSTALL_MSG" : "Countdown is ready"
+}
