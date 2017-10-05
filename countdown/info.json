@@ -1,7 +1,7 @@
 {
     "AUTHOR" : "Krazysh01",
     "SHORT" : "Synchronised Countdown",
-    "DESCRIPTION" : "Countdown timer using synchronised server time",
+    "DESCRIPTION" : "Countdown timer using synchronised server time. Credit to Repulser for the original cog that this has expanded on",
     "DISABLED" : true,
     "NAME" : "Countdown",
     "TAGS" : ["Countdown", "Timer", "count"],
