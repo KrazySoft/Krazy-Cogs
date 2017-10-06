@@ -21,11 +21,11 @@ class countdown:
 
             message = await self.bot.say("```css" + "\n" + "[" + title +"]" + "\nTimer: " + remaining(finish)[0] + "```")
             while True:
-                done = remaining(finish)[1]
+                timer, done = remaining(finish)
                 if done:
                     await self.bot.edit_message(message, new_content=("```Ended!```"))
                     break
-                await self.bot.edit_message(message, new_content=("```css" + "\n" + "[" + title + "]" + "\nTimer: {0}```".format(remaining(finish)[0])))
+                await self.bot.edit_message(message, new_content=("```css" + "\n" + "[" + title + "]" + "\nTimer: {0}```".format(timer)))
                 await asyncio.sleep(1)
             await self.bot.send_message(ctx.message.channel, ctx.message.author.mention + " Your countdown " + "[" + title + "]"  + " Has ended!")
         except ValueError:
