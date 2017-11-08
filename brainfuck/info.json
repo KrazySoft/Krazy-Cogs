@@ -3,6 +3,7 @@
     "SHORT" : "Brainfuck Interpreter",
     "DESCRIPTION" : "Interpreter for Brainfuck Esolang",
     "DISABLED" : true,
+    "HIDDEN" : true,
     "NAME" : "Brainfuck",
     "TAGS" : ["Brainfuck", "Esolang", "Interpreter", "Programming"],
     "INSTALL_MSG" : "Brainfuck Interpreter now installed"

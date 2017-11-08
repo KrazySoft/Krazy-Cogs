@@ -3,6 +3,7 @@
     "SHORT" : "Get a funny comic",
     "DESCRIPTION" : "Gets a random funny comic from a variety of sources",
     "DISABLED" : false,
+    "HIDDEN" : true,
     "NAME" : "funny",
     "TAGS" : ["funny", "comic", "xkcd", "Cyanide and Happiness", "explosm", "Safely Endangered", "random", "bored"],
     "REQUIREMENTS" : ["BeautifulSoup4"],

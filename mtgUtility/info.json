@@ -3,6 +3,7 @@
     "SHORT" : "Utility Functions for Magic the Gathering",
     "DESCRIPTION" : "A Multitude of Utilities for Magic the Gathering Including Card searches and Deck Info",
     "DISABLED" : true,
+    "HIDDEN" : true,
     "NAME" : "mtgUtility",
     "TAGS" : ["MTG", "Magic", "Magic the Gathering"],
     "REQUIREMENTS" : ["BeautifulSoup4"],
