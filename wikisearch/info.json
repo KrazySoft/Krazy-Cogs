@@ -7,5 +7,5 @@
     "NAME" : "WikiSearch",
     "TAGS" : ["wikipedia", "search", "wiki", "random", "information"],
     "REQUIREMENTS" : ["BeautifulSoup4"],
-    "INSTALL_MSG" : "ensure you have the BeautifulSoup4 installed"
+    "INSTALL_MSG" : "ensure you have BeautifulSoup4 installed"
 }
