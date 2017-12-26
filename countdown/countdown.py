@@ -23,8 +23,8 @@ class countdown:
             channelID = ctx.message.channel.id
             msgID = message.id
             while True:
-                channel = await self.bot.get_channel(channelID)
-                message = await self.bot.get_message(channel, msgID)
+                channel = self.bot.get_channel(channelID)
+                message = self.bot.get_message(channel, msgID)
                 timer, done = remaining(finish)
                 if done:
                     await self.bot.edit_message(message, new_content=("```Ended!```"))
