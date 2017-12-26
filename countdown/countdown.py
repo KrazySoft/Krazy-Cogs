@@ -21,7 +21,7 @@ class countdown:
 
             message = await self.bot.say("```css" + "\n" + "[" + title +"]" + "\nTimer: " + remaining(finish)[0] + "```")
             channelID = ctx.message.channel.id
-            msgID = message.ID
+            msgID = message.id
             while True:
                 channel = await self.bot.get_channel(channelID)
                 message = await self.bot.get_message(channel, msgID)
