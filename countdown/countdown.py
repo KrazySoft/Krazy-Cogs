@@ -20,7 +20,7 @@ class countdown:
                 raise BaseException
 
             message = await self.bot.say("```css" + "\n" + "[" + title +"]" + "\nTimer: " + remaining(finish)[0] + "```")
-            channelID = ctx.channel.id
+            channelID = ctx.message.channel.id
             msgID = message.ID
             while True:
                 channel = await self.bot.get_channel(channelID)
